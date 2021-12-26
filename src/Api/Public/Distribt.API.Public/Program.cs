@@ -1,6 +1,5 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+WebApplication app = DefaultDistribtWebApplication.Create();
 
 app.MapGet("/", () => "Hello World!");
 
-app.Run();
+DefaultDistribtWebApplication.Run(app);
