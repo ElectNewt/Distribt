@@ -13,11 +13,11 @@ public static class DefaultDistribtWebApplication
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddRouting(x => x.LowercaseUrls = true);
 
         if (webappBuilder != null)
         {
             webappBuilder.Invoke(builder);
-
         }
 
         return builder.Build();
@@ -33,11 +33,8 @@ public static class DefaultDistribtWebApplication
 
 
         webApp.UseHttpsRedirection();
-
         webApp.UseAuthorization();
-
         webApp.MapControllers();
-
         webApp.Run();
     }
 }

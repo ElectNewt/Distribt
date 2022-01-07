@@ -29,8 +29,8 @@ Alternativamente, si lo prefieres, puedes seguir los post con el código detalla
 Hasta ahora hemos visto las siguientes funcionalidades:
 
 
- * [API Rest](https://www.netmentor.es/entrada/api-rest-csharp) microservicios creados con .NET
-* Patrón API Gateway con YARP.
+* [API Rest](https://www.netmentor.es/entrada/api-rest-csharp) microservicios creados con .NET
+* [Patrón API Gateway](https://www.netmentor.es/entrada/patron-api-gateway) con YARP.
 * RabbitMQ Para la transmisión de mensajes
 * y mucho más (en construcción)
 
