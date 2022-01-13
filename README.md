@@ -31,7 +31,7 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 
 * [API Rest](https://www.netmentor.es/entrada/api-rest-csharp) microservicios creados con .NET
 * [Patrón API Gateway](https://www.netmentor.es/entrada/patron-api-gateway) con YARP.
-* [Producers/Consumers](https://www.netmentor.es/entrada/producers-consumers) para la comunicación asíncrona  implementado con RabbitMQ.
+* [Producers/Consumers](https://www.netmentor.es/entrada/patron-productor-consumidor) para la comunicación asíncrona  implementado con RabbitMQ.
 * y mucho más (en construcción)
 
 
