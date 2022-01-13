@@ -31,9 +31,13 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 
 * [API Rest](https://www.netmentor.es/entrada/api-rest-csharp) microservicios creados con .NET
 * [Patrón API Gateway](https://www.netmentor.es/entrada/patron-api-gateway) con YARP.
-* RabbitMQ Para la transmisión de mensajes
+* [Producers/Consumers](https://www.netmentor.es/entrada/producers-consumers) para la comunicación asíncrona  implementado con RabbitMQ.
 * y mucho más (en construcción)
 
+
+## Documentación
+Puedes encontrar documentación de cada projecto dentro de `Shared` en la carpeta `docs`.
+* Shared.Communication - [Enlace](docs/communication/Readme.md)
 
 
 

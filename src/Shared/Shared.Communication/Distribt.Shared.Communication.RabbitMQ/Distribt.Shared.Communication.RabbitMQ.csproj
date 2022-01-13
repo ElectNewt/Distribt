@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <RootNamespace>Distribt.Shared.Communication.RabbitMQ</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Distribt.Shared.Serialization\Distribt.Shared.Serialization.csproj" />
+      <ProjectReference Include="..\Distribt.Shared.Communication\Distribt.Shared.Communication.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+    </ItemGroup>
+
+</Project>

@@ -1,8 +1,11 @@
 version: "3.9"
 services:
   rabbitmq:
-    image: rabbitmq:3-management #needed to be able to have a User interface
+    image: rabbitmq:3.9-management-alpine #management version needed to be able to have a User interface
     container_name: rabbitmq
+    environment:
+        - RABBITMQ_DEFAULT_USER=DistribtAdmin
+        - RABBITMQ_DEFAULT_PASS=DistribtPass
     ports:
         - 5672:5672
         - 15672:15672

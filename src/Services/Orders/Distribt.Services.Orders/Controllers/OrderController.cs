@@ -1,15 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Distribt.Shared.Communication.Publisher.Integration;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Distribt.Services.Orders.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class OrderController
 {
-    [HttpGet("{orderId}")]
-    public Task<OrderDto> GetOrder(Guid orderId)
+    private readonly IIntegrationMessagePublisher _integrationMessagePublisher;
+
+    public OrderController(IIntegrationMessagePublisher integrationMessagePublisher)
     {
+        _integrationMessagePublisher = integrationMessagePublisher;
+    }
+
+    [HttpGet("{orderId}")]
+    public async Task<OrderDto> GetOrder(Guid orderId)
+    {
+        OrderDto orderDto = new OrderDto(orderId);
+        await _integrationMessagePublisher.Publish(orderDto);
         //TODO: logic
-        return Task.FromResult(new OrderDto(orderId));
+        return orderDto;
     }
 
     [HttpPost(Name = "addorder")]

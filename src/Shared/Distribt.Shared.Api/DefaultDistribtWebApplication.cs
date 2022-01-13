@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Distribt.Shared.Serialization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -10,10 +11,13 @@ public static class DefaultDistribtWebApplication
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder();
 
+        
+        
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddRouting(x => x.LowercaseUrls = true);
+        builder.Services.AddSerializer();
 
         if (webappBuilder != null)
         {
@@ -38,4 +42,3 @@ public static class DefaultDistribtWebApplication
         webApp.Run();
     }
 }
-
