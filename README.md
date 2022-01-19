@@ -19,6 +19,7 @@ Vamos a ver un sistema distribuido con múltiples características, como pueden 
 La arquitectura que vamos a ver es la siguiente:
 
 ![DistribtDiagram](assets/diagram.png)
+- Nota: las etiquetas amarillas representan el código ya implementado.
 
 Puedes encontrar el proceso de creación del sistema en [mi curso de YouTube](https://www.youtube.com/playlist?list=PLesmOrW3mp4jpSbdFMtVWINJZ7OLdSASS).
 
@@ -31,7 +32,7 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 
 * [API Rest](https://www.netmentor.es/entrada/api-rest-csharp) microservicios creados con .NET
 * [Patrón API Gateway](https://www.netmentor.es/entrada/patron-api-gateway) con YARP.
-* [Producers/Consumers](https://www.netmentor.es/entrada/patron-productor-consumidor) para la comunicación asíncrona  implementado con RabbitMQ.
+* [Producers/Consumers](https://www.netmentor.es/entrada/patron-productor-consumidor) para la comunicación asíncrona [implementado con RabbitMQ](https://www.netmentor.es/entrada/rabbitmq-comunicacion-asincrona).
 * y mucho más (en construcción)
 
 
