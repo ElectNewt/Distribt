@@ -30,24 +30,7 @@ public class RabbitMQMessageConsumer<TMessage> : IMessageConsumer<TMessage>
 
     public Task StartAsync(CancellationToken cancelToken = default)
     {
-        LinkExchangesWithQueue(); 
         return Task.Run(async () => await Consume(), cancelToken);
-    }
-
-    private void LinkExchangesWithQueue()
-    {
-        List<string> exchanges = GetCorrectExchanges().Split(",").ToList();
-        string queue = GetCorrectQueue();
-        using IConnection connection = _connectionFactory.CreateConnection(); 
-        using IModel channel = connection.CreateModel();
-
-        foreach (string exchange in exchanges)
-        {
-            //#7 What if the queue does not exist?
-            //Ensure queue and exchange exist? 
-            channel.QueueBind(queue, exchange, "", new Dictionary<string, object>());
-        }
-
     }
 
     private Task Consume()
@@ -56,10 +39,10 @@ public class RabbitMQMessageConsumer<TMessage> : IMessageConsumer<TMessage>
         //because the basicACk on the handler was giving "already disposed"
         IConnection connection = _connectionFactory.CreateConnection(); // #6 using (implement it correctly)
         IModel channel = connection.CreateModel(); // #6 using (implement it correctly)
-        RabbitMQMessageReceiver consumer = new RabbitMQMessageReceiver(channel, _serializer, _handleMessage);
+        RabbitMQMessageReceiver receiver = new RabbitMQMessageReceiver(channel, _serializer, _handleMessage);
         string queue = GetCorrectQueue();
         
-        channel.BasicConsume(queue, false, consumer);
+        channel.BasicConsume(queue, false, receiver);
         
        // #5 this should be here await consumer.HandleMessage();
        return Task.CompletedTask;
@@ -71,12 +54,5 @@ public class RabbitMQMessageConsumer<TMessage> : IMessageConsumer<TMessage>
                    ? _settings.Consumer?.IntegrationQueue
                    : _settings.Consumer?.DomainQueue)
                ?? throw new ArgumentException("please configure the queues on the appsettings");
-    }
-    private string GetCorrectExchanges()
-    {
-        return (typeof(TMessage) == typeof(IntegrationMessage)
-                   ? _settings.Consumer?.IntegrationExchanges
-                   : _settings.Consumer?.DomainExchanges)
-               ?? throw new ArgumentException("please configure the Exchanges on the appsettings");
     }
 }

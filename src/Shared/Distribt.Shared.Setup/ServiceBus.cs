@@ -20,6 +20,18 @@ public static class ServiceBus
         serviceCollection.AddRabbitMqConsumer<IntegrationMessage>();
     }
     
+    public static void AddServiceBusDomainPublisher(this IServiceCollection serviceCollection, IConfiguration configuration)
+    {
+        serviceCollection.AddRabbitMQ(configuration);
+        serviceCollection.AddRabbitMQPublisher<DomainMessage>();
+    }
+
+    public static void AddServiceBusDomainConsumer(this IServiceCollection serviceCollection, IConfiguration configuration)
+    {
+        serviceCollection.AddRabbitMQ(configuration);
+        serviceCollection.AddRabbitMqConsumer<DomainMessage>();
+    }
+    
     //#8 The handlers have to be somehow injected automatically because it will facilitate the usage with DI
     public static void AddHandlers(this IServiceCollection serviceCollection, IEnumerable<IMessageHandler> handlers)
     {

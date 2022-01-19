@@ -17,8 +17,6 @@ public record PublisherSettings
 
 public record ConsumerSettings
 {
-    public string? IntegrationExchanges { get; init; }
     public string? IntegrationQueue { get; init; }
-    public string? DomainExchanges { get; init; }
     public string? DomainQueue { get; init; }
 }

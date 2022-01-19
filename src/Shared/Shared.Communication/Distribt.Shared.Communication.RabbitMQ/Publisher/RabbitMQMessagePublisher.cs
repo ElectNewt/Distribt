@@ -29,9 +29,9 @@ public class RabbitMQMessagePublisher<TMessage> : IExternalMessagePublisher<TMes
     public Task Publish(TMessage message, string? routingKey = null, CancellationToken cancellationToken = default)
     {
         using IConnection connection = _connectionFactory.CreateConnection();
-        using IModel channel = connection.CreateModel();
+        using IModel model = connection.CreateModel();
 
-        PublishSingle(message, connection, channel, routingKey, cancellationToken);
+        PublishSingle(message, model, routingKey);
 
         return Task.CompletedTask;
     }
@@ -39,10 +39,10 @@ public class RabbitMQMessagePublisher<TMessage> : IExternalMessagePublisher<TMes
     public Task PublishMany(IEnumerable<TMessage> messages, string? routingKey = null, CancellationToken cancellationToken = default)
     {
         using IConnection connection = _connectionFactory.CreateConnection();
-        using IModel channel = connection.CreateModel();
+        using IModel model = connection.CreateModel();
         foreach (TMessage message in messages)
         {
-            PublishSingle(message, connection, channel, routingKey, cancellationToken);
+            PublishSingle(message, model, routingKey);
         }
 
         return Task.CompletedTask;
@@ -50,15 +50,13 @@ public class RabbitMQMessagePublisher<TMessage> : IExternalMessagePublisher<TMes
 
 
    
-    private void PublishSingle(TMessage message, IConnection connection, IModel channel, string? routingKey,
-        CancellationToken cancellationToken)
+    private void PublishSingle(TMessage message, IModel model, string? routingKey)
     {
-        var model = connection.CreateModel();
         var properties = model.CreateBasicProperties();
         properties.Persistent = true; 
         properties.Type = RemoveVersion(message.GetType());
 
-        channel.BasicPublish(exchange: GetCorrectExchange(),
+        model.BasicPublish(exchange: GetCorrectExchange(),
             routingKey: routingKey ?? "",
             basicProperties: properties,
             body: _serializer.SerializeObjectToByteArray(message));

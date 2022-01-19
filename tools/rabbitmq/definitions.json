@@ -1,0 +1,27 @@
+{
+  "users": [],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [],
+  "parameters": [],
+  "policies": [
+    {"vhost":"/","name":"DLX","pattern":".*","apply-to":"queues","definition":{"dead-letter-exchange":"dead-letter.exchange"},"priority":0}
+  ],
+  "queues": [
+    {"name":"subscription-queue","vhost":"/","durable":true,"auto_delete":false,"arguments":{}},
+    {"name":"subscription-queue.dead-letter","vhost":"/","durable":true,"auto_delete":false,"arguments":{}}
+  ],
+  "exchanges": [
+    {"name":"api.public.exchange","vhost":"/","type":"direct","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
+    {"name":"subscription.exchange","vhost":"/","type":"topic","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
+    {"name":"dead-letter.exchange","vhost":"/","type":"direct","durable":true,"auto_delete":false,"internal":false,"arguments":{}}
+  ],
+  "bindings": [
+    {"source":"api.public.exchange","vhost":"/","destination":"subscription.exchange","destination_type":"exchange","routing_key":"subscription","arguments":{}},
+    {"source":"subscription.exchange","vhost":"/","destination":"subscription-queue","destination_type":"queue","routing_key":"subscription","arguments":{}},
+    {"source":"dead-letter.exchange","vhost":"/","destination":"subscription-queue.dead-letter","destination_type":"queue","routing_key":"subscription","arguments":{}}
+  ]
+}

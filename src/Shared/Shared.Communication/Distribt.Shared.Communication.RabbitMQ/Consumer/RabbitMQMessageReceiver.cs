@@ -47,6 +47,4 @@ public class RabbitMQMessageReceiver : DefaultBasicConsumer
      
         _channel.BasicAck(DeliveryTag, false);
     }
-
-  
 }

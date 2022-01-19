@@ -48,3 +48,4 @@ public class ConsumerHostedService<TMessage> : IHostedService
         }
     }
 }
+

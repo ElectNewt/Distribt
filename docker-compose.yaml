@@ -9,3 +9,6 @@ services:
     ports:
         - 5672:5672
         - 15672:15672
+    volumes: 
+          - ./tools/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
+          - ./tools/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
