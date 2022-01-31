@@ -1,7 +1,4 @@
 using Distribt.Services.Subscriptions.Consumer.Handler;
-using Distribt.Shared.Api;
-using Distribt.Shared.Communication.Consumer.Handler;
-using Distribt.Shared.Setup;
 
 WebApplication app = DefaultDistribtWebApplication.Create(x =>
 {

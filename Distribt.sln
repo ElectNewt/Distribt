@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Subscript
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Subscriptions.Dtos", "src\Services\Subscriptions\Distribt.Services.Subscriptions.Dtos\Distribt.Services.Subscriptions.Dtos.csproj", "{43FAF62D-235B-4AEF-A4A0-8D906EEF6530}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.Secrets", "src\Shared\Distribt.Shared.Secrets\Distribt.Shared.Secrets.csproj", "{568A6AEA-E4C8-4AE8-AC75-D099AAA1EB01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{43FAF62D-235B-4AEF-A4A0-8D906EEF6530}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43FAF62D-235B-4AEF-A4A0-8D906EEF6530}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43FAF62D-235B-4AEF-A4A0-8D906EEF6530}.Release|Any CPU.Build.0 = Release|Any CPU
+		{568A6AEA-E4C8-4AE8-AC75-D099AAA1EB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{568A6AEA-E4C8-4AE8-AC75-D099AAA1EB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{568A6AEA-E4C8-4AE8-AC75-D099AAA1EB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{568A6AEA-E4C8-4AE8-AC75-D099AAA1EB01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +138,7 @@ Global
 		{9D9DB152-C9F9-4414-ABFC-C6220C512AB1} = {CE3861D4-4B49-43A7-ADCD-BF7D076E9F9D}
 		{30B33D67-2D5E-4874-A076-CD695D791B30} = {ED38326B-E44E-4CC1-93FE-0D75B35C1735}
 		{43FAF62D-235B-4AEF-A4A0-8D906EEF6530} = {ED38326B-E44E-4CC1-93FE-0D75B35C1735}
+		{568A6AEA-E4C8-4AE8-AC75-D099AAA1EB01} = {CE3861D4-4B49-43A7-ADCD-BF7D076E9F9D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3532EB9C-D36A-4A7D-9494-BBC170208D46}

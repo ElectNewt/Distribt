@@ -1,5 +1,3 @@
-using Distribt.Shared.Communication.Consumer.Handler;
-using Distribt.Shared.Communication.Messages;
 using Distribt.Shared.Communication.RabbitMQ;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,25 +8,48 @@ public static class ServiceBus
 {
     public static void AddServiceBusIntegrationPublisher(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.AddRabbitMQ(configuration);
+        
+        serviceCollection.AddRabbitMQ(GetRabbitMqSecretCredentialsfromRabbitMQEngine, configuration);
         serviceCollection.AddRabbitMQPublisher<IntegrationMessage>();
+    }
+
+    /// <summary>
+    /// default option (KeyValue) to get credentials using Vault 
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    /// <returns></returns>
+    private static async Task<RabbitMQCredentials> GetRabbitMqSecretCredentials(IServiceProvider serviceProvider)
+    {
+        var secretManager = serviceProvider.GetService<ISecretManager>();
+        return await secretManager!.Get<RabbitMQCredentials>("rabbitmq");
+    }
+    
+    /// <summary>
+    /// this option is used to show the usage of different engines on Vault
+    /// </summary>
+    private static async Task<RabbitMQCredentials> GetRabbitMqSecretCredentialsfromRabbitMQEngine(IServiceProvider serviceProvider)
+    {
+        var secretManager = serviceProvider.GetService<ISecretManager>();
+        var credentials = await secretManager!.GetRabbitMQCredentials("distribt-role");
+        return new RabbitMQCredentials() { password = credentials.Password, username = credentials.Username };
     }
 
     public static void AddServiceBusIntegrationConsumer(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.AddRabbitMQ(configuration);
+        
+        serviceCollection.AddRabbitMQ(GetRabbitMqSecretCredentials, configuration);
         serviceCollection.AddRabbitMqConsumer<IntegrationMessage>();
     }
     
     public static void AddServiceBusDomainPublisher(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.AddRabbitMQ(configuration);
+        serviceCollection.AddRabbitMQ(GetRabbitMqSecretCredentials, configuration);
         serviceCollection.AddRabbitMQPublisher<DomainMessage>();
     }
 
     public static void AddServiceBusDomainConsumer(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.AddRabbitMQ(configuration);
+        serviceCollection.AddRabbitMQ(GetRabbitMqSecretCredentials, configuration);
         serviceCollection.AddRabbitMqConsumer<DomainMessage>();
     }
     

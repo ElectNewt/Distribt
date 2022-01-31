@@ -21,8 +21,8 @@ public class RabbitMQMessagePublisher<TMessage> : IExternalMessagePublisher<TMes
         _connectionFactory = new ConnectionFactory()
         {
             HostName = _settings.Hostname,
-            Password = _settings.Password,
-            UserName = _settings.Username
+            Password = _settings.Credentials!.password,
+            UserName = _settings.Credentials.username
         };
     }
 

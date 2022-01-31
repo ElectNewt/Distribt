@@ -23,8 +23,8 @@ public class RabbitMQMessageConsumer<TMessage> : IMessageConsumer<TMessage>
         _connectionFactory = new ConnectionFactory()
         {
             HostName = _settings.Hostname,
-            Password = _settings.Password,
-            UserName = _settings.Username
+            Password = _settings.Credentials!.password,
+            UserName = _settings.Credentials.username
         };
     }
 

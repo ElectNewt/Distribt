@@ -11,6 +11,17 @@ namespace Distribt.Shared.Communication.RabbitMQ;
 
 public static class RabbitMQDependencyInjection
 {
+    public static void AddRabbitMQ(this IServiceCollection serviceCollection,
+        Func<IServiceProvider, Task<RabbitMQCredentials>> rabbitMqCredentialsFactory, IConfiguration configuration)
+    {
+        serviceCollection.AddRabbitMQ(configuration);
+        serviceCollection.PostConfigure<RabbitMQSettings>(x => x.Credentials
+            = rabbitMqCredentialsFactory.Invoke(serviceCollection.BuildServiceProvider()).Result);
+    }
+    
+    /// <summary>
+    /// this method is used when the credentials are inside the configuration. not recommended.
+    /// </summary>
     public static void AddRabbitMQ(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
         serviceCollection.Configure<RabbitMQSettings>(configuration.GetSection("Bus:RabbitMQ"));

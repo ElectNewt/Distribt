@@ -1,12 +1,17 @@
 namespace Distribt.Shared.Communication.RabbitMQ;
 
-public record RabbitMQSettings
+public class RabbitMQSettings
 {
     public string Hostname { get; init; } = null!;
-    public string Username { get; init; } = null!;
-    public string Password { get; init; } = null!;
+    public RabbitMQCredentials? Credentials { get; set; }
     public PublisherSettings? Publisher { get; init; }
     public ConsumerSettings? Consumer { get; init; }
+}
+
+public record RabbitMQCredentials
+{
+    public string username { get; init; } = null!;
+    public string password { get; init; } = null!;
 }
 
 public record PublisherSettings

@@ -34,6 +34,7 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 * [Patrón API Gateway](https://www.netmentor.es/entrada/patron-api-gateway) con YARP.
 * [Producers/Consumers](https://www.netmentor.es/entrada/patron-productor-consumidor) para la comunicación asíncrona [implementado con RabbitMQ](https://www.netmentor.es/entrada/rabbitmq-comunicacion-asincrona).
 * y mucho más (en construcción)
+* [Acceso y almacenamiento seuguro](https://www.netmentor.es/entrada/gestion-credenciales-vault) de la informción secreta con Vault.
 
 
 ## Documentación
@@ -62,6 +63,10 @@ Para ejecutar la aplicación correctamente debes tener [Docker](https://www.netm
 He creado un fichero `docker-compose.yaml` que ya contiene toda la configuración necesaria para que una vez ejecutes la solución, esta funcione sin problemas.
 
 Eventualmente lo veremos toda la configuración en kubernetes (con [project tye](https://github.com/dotnet/tye)).
+
+Para poder ejecutar la aplicación correctamente en local, necestiaras ejecutar tanto el fichero `docker-compose` como la configuración para los diferentes servicios utilizados. 
+
+Para ahorrar tiempo he creado un fichero `bash` que ejectua todo `./tools/local-development/up.sh`
 
 ## Dale una estrella ⭐
 Si te gusta el proyecto no dudes en darle una estrella, hacer un fork junto a una PR o incluso apoyar económicamente el proyecto [donando un café](https://www.buymeacoffee.com/netmentor).

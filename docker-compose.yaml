@@ -12,3 +12,18 @@ services:
     volumes: 
           - ./tools/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
           - ./tools/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+  vault:
+    image: vault:latest
+    container_name: vault
+    ports:
+      - 8200:8200
+    environment:
+      VAULT_ADDR: "http://127.0.0.1:8200"
+      # in production scenarios the token mechanisim for loggin will be forbidden,
+      # it cannot be in source control.
+      VAULT_TOKEN: "vault-distribt-token" # to be able to use the cli on dev
+      VAULT_DEV_ROOT_TOKEN_ID: "vault-distribt-token"
+    cap_add:
+      - IPC_LOCK
+    depends_on:
+      - rabbitmq
