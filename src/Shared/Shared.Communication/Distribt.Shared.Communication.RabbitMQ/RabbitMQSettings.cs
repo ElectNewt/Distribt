@@ -2,10 +2,20 @@ namespace Distribt.Shared.Communication.RabbitMQ;
 
 public class RabbitMQSettings
 {
-    public string Hostname { get; init; } = null!;
-    public RabbitMQCredentials? Credentials { get; set; }
+    public string Hostname { get; private set; } = null!;
+    public RabbitMQCredentials? Credentials { get; private set; }
     public PublisherSettings? Publisher { get; init; }
     public ConsumerSettings? Consumer { get; init; }
+
+    public void SetCredentials(RabbitMQCredentials credentials)
+    {
+        Credentials = credentials;
+    }
+
+    public void SetHostName(string hostname)
+    {
+        Hostname = hostname;
+    }
 }
 
 public record RabbitMQCredentials

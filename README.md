@@ -33,8 +33,9 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 * [API Rest](https://www.netmentor.es/entrada/api-rest-csharp) microservicios creados con .NET
 * [Patrón API Gateway](https://www.netmentor.es/entrada/patron-api-gateway) con YARP.
 * [Producers/Consumers](https://www.netmentor.es/entrada/patron-productor-consumidor) para la comunicación asíncrona [implementado con RabbitMQ](https://www.netmentor.es/entrada/rabbitmq-comunicacion-asincrona).
-* y mucho más (en construcción)
 * [Acceso y almacenamiento seuguro](https://www.netmentor.es/entrada/gestion-credenciales-vault) de la informción secreta con Vault.
+* [Registro de servicios](https://www.netmentor.es/entrada/service-registry-discovery-consul) con Consul (service discovery / Service registry) 
+* y mucho más (en construcción)
 
 
 ## Documentación

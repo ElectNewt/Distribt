@@ -1,6 +1,3 @@
-using Distribt.Shared.Communication.RabbitMQ;
-using Distribt.Shared.Secrets;
-
 WebApplication app = DefaultDistribtWebApplication.Create(webappBuilder =>
 {
     webappBuilder.Services.AddReverseProxy()

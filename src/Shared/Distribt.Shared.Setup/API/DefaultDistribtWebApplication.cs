@@ -1,11 +1,8 @@
-﻿using Distribt.Shared.Secrets;
-using Distribt.Shared.Serialization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Distribt.Shared.Api;
+namespace Distribt.Shared.Setup.API;
 
 public static class DefaultDistribtWebApplication
 {
@@ -18,7 +15,9 @@ public static class DefaultDistribtWebApplication
         builder.Services.AddSwaggerGen();
         builder.Services.AddRouting(x => x.LowercaseUrls = true);
         builder.Services.AddSerializer();
-        builder.Services.AddVaultService(builder.Configuration); 
+        
+        builder.Services.AddServiceDiscovery(builder.Configuration);
+        builder.Services.AddSecretManager(builder.Configuration);
 
         if (webappBuilder != null)
         {

@@ -12,11 +12,17 @@ namespace Distribt.Shared.Communication.RabbitMQ;
 public static class RabbitMQDependencyInjection
 {
     public static void AddRabbitMQ(this IServiceCollection serviceCollection,
-        Func<IServiceProvider, Task<RabbitMQCredentials>> rabbitMqCredentialsFactory, IConfiguration configuration)
+        Func<IServiceProvider, Task<RabbitMQCredentials>> rabbitMqCredentialsFactory,
+        Func<IServiceProvider, Task<string>> rabbitMqHostName,
+        IConfiguration configuration)
     {
         serviceCollection.AddRabbitMQ(configuration);
-        serviceCollection.PostConfigure<RabbitMQSettings>(x => x.Credentials
-            = rabbitMqCredentialsFactory.Invoke(serviceCollection.BuildServiceProvider()).Result);
+        serviceCollection.PostConfigure<RabbitMQSettings>(x =>
+        {
+            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+            x.SetCredentials(rabbitMqCredentialsFactory.Invoke(serviceProvider).Result);
+            x.SetHostName(rabbitMqHostName.Invoke(serviceProvider).Result);
+        });
     }
     
     /// <summary>

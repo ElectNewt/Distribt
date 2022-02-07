@@ -12,6 +12,14 @@ services:
     volumes: 
           - ./tools/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
           - ./tools/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+  consul:
+    container_name: consul
+    image: consul
+    ports:
+      - 8500:8500 # this is the UI/API calls
+      - 8400:8400
+      - 8600:8600
+      - 8600:8600/udp
   vault:
     image: vault:latest
     container_name: vault
@@ -27,3 +35,4 @@ services:
       - IPC_LOCK
     depends_on:
       - rabbitmq
+      - consul

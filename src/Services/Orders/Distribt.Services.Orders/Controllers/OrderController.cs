@@ -1,5 +1,4 @@
-﻿using Distribt.Shared.Communication.Publisher.Integration;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Distribt.Services.Orders.Controllers;
 [ApiController]
