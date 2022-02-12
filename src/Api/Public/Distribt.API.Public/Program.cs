@@ -15,6 +15,7 @@ app.MapPost("/subscribe", async (SubscriptionDto subscriptionDto) =>
     await publisher.Publish(subscriptionDto, routingKey: "subscription");
 });
 
+
 app.MapReverseProxy();
 
 

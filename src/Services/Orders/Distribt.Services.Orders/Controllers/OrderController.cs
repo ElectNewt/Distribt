@@ -1,36 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Distribt.Services.Orders.Dto;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Distribt.Services.Orders.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class OrderController
 {
-    private readonly IIntegrationMessagePublisher _integrationMessagePublisher;
-
-    public OrderController(IIntegrationMessagePublisher integrationMessagePublisher)
+    private readonly IDomainMessagePublisher _domainMessagePublisher;
+    
+    public OrderController(IDomainMessagePublisher domainMessagePublisher)
     {
-        _integrationMessagePublisher = integrationMessagePublisher;
+        _domainMessagePublisher = domainMessagePublisher;
     }
 
     [HttpGet("{orderId}")]
-    public async Task<OrderDto> GetOrder(Guid orderId)
+    public Task<Order> GetOrder(Guid orderId)
     {
-        OrderDto orderDto = new OrderDto(orderId);
-        await _integrationMessagePublisher.Publish(orderDto);
-        //TODO: logic
-        return orderDto;
+        throw new NotImplementedException();
     }
 
-    [HttpPost(Name = "addorder")]
-    public Task<Guid> AddOrder(OrderDto order)
+    [HttpGet("getorderstatus/{orderId}")]
+    public Task<Order> GetOrderStatus(Guid orderId)
     {
-        //TODO: logic
-        return Task.FromResult(Guid.NewGuid());
+        throw new NotImplementedException();
     }
-
-
-    //TODO: finish the dto
-    //TODO: move
-    public record OrderDto(Guid orderId);
+    
+    [HttpPost(Name = "createorder")]
+    public async Task<ActionResult<Guid>> CreateOrder(CreateOrderDto createOrder)
+    {
+        Order order = new Order(Guid.NewGuid(), createOrder.orderAddress, createOrder.PersonalDetails,
+            createOrder.Products);
+        await _domainMessagePublisher.Publish(order, routingKey: "order");
+        return new AcceptedResult($"getorderstatus/{order.orderId}", order.orderId);
+    }
 }
 
