@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Distribt.Shared.Api\Distribt.Shared.Api.csproj" />
     <ProjectReference Include="..\Distribt.Shared.Discovery\Distribt.Shared.Discovery.csproj" />
+    <ProjectReference Include="..\Distribt.Shared.Logging\Distribt.Shared.Logging.csproj" />
     <ProjectReference Include="..\Distribt.Shared.Secrets\Distribt.Shared.Secrets.csproj" />
     <ProjectReference Include="..\Distribt.Shared.Serialization\Distribt.Shared.Serialization.csproj" />
     <ProjectReference Include="..\Shared.Communication\Distribt.Shared.Communication.RabbitMQ\Distribt.Shared.Communication.RabbitMQ.csproj" />

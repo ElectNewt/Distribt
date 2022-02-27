@@ -1,4 +1,5 @@
 ﻿using Distribt.Services.Orders.Dto;
+using Distribt.Services.Products.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Distribt.Services.Orders.Controllers;
@@ -7,20 +8,26 @@ namespace Distribt.Services.Orders.Controllers;
 public class OrderController
 {
     private readonly IDomainMessagePublisher _domainMessagePublisher;
+    private readonly ILogger<OrderController>  _logger;
     
-    public OrderController(IDomainMessagePublisher domainMessagePublisher)
+    public OrderController(ILogger<OrderController> logger,  IDomainMessagePublisher domainMessagePublisher)
     {
         _domainMessagePublisher = domainMessagePublisher;
+        _logger = logger;
     }
 
     [HttpGet("{orderId}")]
-    public Task<Order> GetOrder(Guid orderId)
+    public Task<OrderDto> GetOrder(Guid orderId)
     {
-        throw new NotImplementedException();
+        _logger.LogError($"esto es un mensaje de ejemplo con el order {orderId}");
+
+        //Todo, change for a real one as this one is only to test the logger.
+        return Task.FromResult(new OrderDto(orderId, new OrderAddress("stree1", "postalCode"), 
+            new PersonalDetails("name", "surname"), new List<ProductDto>()));
     }
 
     [HttpGet("getorderstatus/{orderId}")]
-    public Task<Order> GetOrderStatus(Guid orderId)
+    public Task<OrderDto> GetOrderStatus(Guid orderId)
     {
         throw new NotImplementedException();
     }
@@ -28,10 +35,10 @@ public class OrderController
     [HttpPost(Name = "createorder")]
     public async Task<ActionResult<Guid>> CreateOrder(CreateOrderDto createOrder)
     {
-        Order order = new Order(Guid.NewGuid(), createOrder.orderAddress, createOrder.PersonalDetails,
+        OrderDto orderDto = new OrderDto(Guid.NewGuid(), createOrder.orderAddress, createOrder.PersonalDetails,
             createOrder.Products);
-        await _domainMessagePublisher.Publish(order, routingKey: "order");
-        return new AcceptedResult($"getorderstatus/{order.orderId}", order.orderId);
+        await _domainMessagePublisher.Publish(orderDto, routingKey: "order");
+        return new AcceptedResult($"getorderstatus/{orderDto.orderId}", orderDto.orderId);
     }
 }
 
