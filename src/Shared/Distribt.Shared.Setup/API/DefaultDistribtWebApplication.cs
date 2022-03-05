@@ -8,9 +8,10 @@ namespace Distribt.Shared.Setup.API;
 
 public static class DefaultDistribtWebApplication
 {
-    public static WebApplication Create(Action<WebApplicationBuilder>? webappBuilder = null)
+    public static WebApplication Create(string[] args, Action<WebApplicationBuilder>? webappBuilder = null)
     {
-        WebApplicationBuilder builder = WebApplication.CreateBuilder();
+        WebApplicationBuilder builder =  WebApplication.CreateBuilder(args);
+
         builder.Host.ConfigureSerilog();
      
         builder.Services.AddControllers();

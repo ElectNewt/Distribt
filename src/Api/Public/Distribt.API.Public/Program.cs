@@ -1,6 +1,6 @@
 using Distribt.Services.Subscriptions.Dtos;
 
-WebApplication app = DefaultDistribtWebApplication.Create(webappBuilder =>
+WebApplication app = DefaultDistribtWebApplication.Create(args, webappBuilder =>
 {
     webappBuilder.Services.AddReverseProxy()
         .LoadFromConfig(webappBuilder.Configuration.GetSection("ReverseProxy"));

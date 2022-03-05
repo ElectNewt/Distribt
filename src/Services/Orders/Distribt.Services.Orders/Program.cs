@@ -1,4 +1,4 @@
-WebApplication app = DefaultDistribtWebApplication.Create(webappBuilder =>
+WebApplication app = DefaultDistribtWebApplication.Create(args, webappBuilder =>
 {
     webappBuilder.Services.AddServiceBusDomainPublisher(webappBuilder.Configuration);
     

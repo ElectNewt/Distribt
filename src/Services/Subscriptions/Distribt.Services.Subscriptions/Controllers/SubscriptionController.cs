@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Distribt.Services.Subscriptions.Dtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Distribt.Services.Subscriptions.Controllers;
 
@@ -6,11 +7,18 @@ namespace Distribt.Services.Subscriptions.Controllers;
 [Route("[controller]")]
 public class SubscriptionController
 {
-    [HttpPost(Name = "subscribe")]
-    public Task<bool> Subscribe(SubscriptionDto subscription)
+    private readonly IIntegrationMessagePublisher _integrationMessagePublisher;
+
+    public SubscriptionController(IIntegrationMessagePublisher integrationMessagePublisher)
     {
-        //TODO: logic 
-        return Task.FromResult(true);
+        _integrationMessagePublisher = integrationMessagePublisher;
+    }
+
+    [HttpPost(Name = "subscribe")]
+    public async Task<bool> Subscribe(SubscriptionDto subscription)
+    {
+        await _integrationMessagePublisher.Publish(subscription);
+        return true;
     }
 
     [HttpDelete(Name = "unsubscribe")]
@@ -21,4 +29,3 @@ public class SubscriptionController
     }
 }
 
-public record SubscriptionDto(string email);
