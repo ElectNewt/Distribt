@@ -36,7 +36,7 @@ public static class ServiceBus
         return new RabbitMQCredentials() { password = credentials.Password, username = credentials.Username };
     }
 
-    public static void AddServiceBusIntegrationConsumer(this IServiceCollection serviceCollection,
+    public static void AddServiceBusIntegrationConsumer<T>(this IServiceCollection serviceCollection,
         IConfiguration configuration)
     {
         serviceCollection.AddRabbitMQ(GetRabbitMqSecretCredentials, GetRabbitMQHostName, configuration);
@@ -57,10 +57,16 @@ public static class ServiceBus
         serviceCollection.AddRabbitMqConsumer<DomainMessage>();
     }
 
-    //#8 The handlers have to be somehow injected automatically because it will facilitate the usage with DI
-    public static void AddHandlers(this IServiceCollection serviceCollection, IEnumerable<IMessageHandler> handlers)
+    public static void AddHandlersInAssembly<T>(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddConsumerHandlers(handlers);
+        serviceCollection.Scan(scan => scan.FromAssemblyOf<T>()
+            .AddClasses(classes => classes.AssignableTo<IMessageHandler>())
+            .AsImplementedInterfaces()
+            .WithTransientLifetime());
+
+        ServiceProvider sp = serviceCollection.BuildServiceProvider();
+        var listHandlers = sp.GetServices<IMessageHandler>();
+        serviceCollection.AddConsumerHandlers(listHandlers);
     }
 
     private static async Task<string> GetRabbitMQHostName(IServiceProvider serviceProvider)

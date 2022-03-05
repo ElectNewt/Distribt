@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Shared.Communication\Distribt.Shared.Communication.RabbitMQ\Distribt.Shared.Communication.RabbitMQ.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Scrutor" Version="4.1.0" />
+  </ItemGroup>
+
 </Project>

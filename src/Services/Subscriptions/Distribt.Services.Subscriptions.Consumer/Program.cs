@@ -2,12 +2,9 @@ using Distribt.Services.Subscriptions.Consumer.Handler;
 
 WebApplication app = DefaultDistribtWebApplication.Create(x =>
 {
-    x.Services.AddHandlers(new List<IMessageHandler>()
-    {
-        new SubscriptionHandler(),
-        new UnSubscriptionHandler()
-    });
-    x.Services.AddServiceBusIntegrationConsumer(x.Configuration);
+    x.Services.AddScoped<IDependenciaTest, DependenciaTest>();
+    x.Services.AddHandlersInAssembly<SubscriptionHandler>();
+    x.Services.AddServiceBusIntegrationConsumer<SubscriptionHandler>(x.Configuration);
 });
 
 
