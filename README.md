@@ -36,10 +36,11 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 * [Acceso y almacenamiento seuguro](https://www.netmentor.es/entrada/gestion-credenciales-vault) de la informción secreta con Vault.
 * [Registro de servicios](https://www.netmentor.es/entrada/service-registry-discovery-consul) con Consul (service discovery / Service registry)
 * [Sistema de logs](https://www.netmentor.es/entrada/servicio-logs-graylog) con GrayLog y SeriLog.
+* [CQRS](https://www.netmentor.es/entrada/patron-cqrs-explicado-10-minutos) para separar lecturas de escrituras.
 * y mucho más (en construcción)
 
 
-## Documentación
+## Documentación [En progreso]
 Puedes encontrar documentación de cada projecto dentro de `Shared` en la carpeta `docs`.
 * Shared.Communication - [Enlace](docs/communication/Readme.md)
 

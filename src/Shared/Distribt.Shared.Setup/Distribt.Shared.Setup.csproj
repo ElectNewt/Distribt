@@ -15,6 +15,8 @@
     <ProjectReference Include="..\Distribt.Shared.Secrets\Distribt.Shared.Secrets.csproj" />
     <ProjectReference Include="..\Distribt.Shared.Serialization\Distribt.Shared.Serialization.csproj" />
     <ProjectReference Include="..\Shared.Communication\Distribt.Shared.Communication.RabbitMQ\Distribt.Shared.Communication.RabbitMQ.csproj" />
+    <ProjectReference Include="..\Shared.Databases\Distribt.Shared.Databases.MongoDb\Distribt.Shared.Databases.MongoDb.csproj" />
+    <ProjectReference Include="..\Shared.Databases\Distribt.Shared.Databases.MySql\Distribt.Shared.Databases.MySql.csproj" />
   </ItemGroup>
 
   <ItemGroup>

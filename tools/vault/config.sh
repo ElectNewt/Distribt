@@ -15,3 +15,11 @@ docker exec -it vault vault write rabbitmq/config/connection \
 
 docker exec -it vault vault write rabbitmq/roles/distribt-role \
     vhosts='{"/":{"write": ".*", "read": ".*"}}'
+
+
+    
+## User&Pass for mongoDb
+docker exec -it vault vault kv put secret/mongodb username=distribtUser password=distribtPassword
+
+##User&Pass for MySql
+docker exec -it vault vault kv put secret/mysql username=distribtUser password=distribtPassword

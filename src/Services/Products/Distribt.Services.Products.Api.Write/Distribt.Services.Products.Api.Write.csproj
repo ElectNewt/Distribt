@@ -5,13 +5,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RootNamespace>Distribt.Services.Products</RootNamespace>
+    <RootNamespace>Distribt.Services.Products.Api.Write</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <!--Reference to the shared setup project and the global usings-->
-    <ProjectReference Include="..\..\..\Shared\Distribt.Shared.Setup\Distribt.Shared.Setup.csproj" />
     <Compile Include="..\..\..\Shared\Distribt.Shared.Setup\GlobalUsings.cs" Link="GlobalUsings.cs" />
+    <ProjectReference Include="..\Distribt.Services.Products.BusinessLogic\Distribt.Services.Products.BusinessLogic.csproj" />
   </ItemGroup>
-  
+
 </Project>

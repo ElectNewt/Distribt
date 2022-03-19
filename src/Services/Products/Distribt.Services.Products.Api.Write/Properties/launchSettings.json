@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Distribt.Services.Products": {
+    "Distribt.Services.Products.Api.Write": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

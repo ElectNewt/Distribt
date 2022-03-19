@@ -70,7 +70,6 @@ services:
       - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
       - GRAYLOG_HTTP_EXTERNAL_URI=http://localhost:9000/
     entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 --  /docker-entrypoint.sh
-    restart: always
     depends_on:
       - mongo
       - elasticsearch
@@ -83,3 +82,28 @@ services:
   #############################
   # Graylog configuration end #
   #############################
+  mongodb:
+    image: mongo:latest
+    container_name: MongoDb
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=distribtUser
+      - MONGO_INITDB_ROOT_PASSWORD=distribtPassword
+      - MONGO_INITDB_DATABASE=distribt
+    volumes:
+      - ./tools/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  mysql:
+    image: mysql:8.0
+    container_name: MySql
+    environment:
+      MYSQL_DATABASE: 'distribt'
+      MYSQL_USER: 'distribtUser'
+      MYSQL_PASSWORD: 'distribtPassword'
+      MYSQL_ROOT_PASSWORD: 'distribtRootPassword'
+    ports:
+      # de normal seria 3306:3306 pero tengo el 3306 ocupado en mi máquina personal.
+      - 3307:3306
+    volumes:
+      - ./tools/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+

@@ -9,7 +9,7 @@ public static class ServiceBus
     public static void AddServiceBusIntegrationPublisher(this IServiceCollection serviceCollection,
         IConfiguration configuration)
     {
-        serviceCollection.AddRabbitMQ(GetRabbitMqSecretCredentialsfromRabbitMQEngine, GetRabbitMQHostName,
+        serviceCollection.AddRabbitMQ(GetRabbitMqSecretCredentials, GetRabbitMQHostName,
             configuration);
         serviceCollection.AddRabbitMQPublisher<IntegrationMessage>();
     }
@@ -36,7 +36,7 @@ public static class ServiceBus
         return new RabbitMQCredentials() { password = credentials.Password, username = credentials.Username };
     }
 
-    public static void AddServiceBusIntegrationConsumer<T>(this IServiceCollection serviceCollection,
+    public static void AddServiceBusIntegrationConsumer(this IServiceCollection serviceCollection,
         IConfiguration configuration)
     {
         serviceCollection.AddRabbitMQ(GetRabbitMqSecretCredentials, GetRabbitMQHostName, configuration);
