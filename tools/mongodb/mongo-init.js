@@ -17,3 +17,5 @@ db.Products.insertOne({"Id": 3, "Details": {"Name": "Tercer", "Description": "Te
 //This is called like this because it is the same database.
 //on nomral circumstances (outside of local development) this will be in a separated database and just called "Events"
 db.createCollection("EventsOrders");
+//Same, on normal cirmumstances this will be "Products".
+db.createCollection("ProductName");

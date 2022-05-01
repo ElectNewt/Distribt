@@ -1,28 +1,35 @@
 using Distribt.Services.Orders.Aggregates;
+using Distribt.Services.Orders.BusinessLogic.Services.External;
 using Distribt.Services.Orders.Data;
 using Distribt.Services.Orders.Dto;
 using Distribt.Services.Orders.Events;
+using Distribt.Shared.Setup.Extensions;
 
 namespace Distribt.Services.Orders.Services;
 
 public interface ICreateOrderService
 {
-    Task<Guid> Execute(CreateOrderRequest createOrder, CancellationToken cancellationToken = default(CancellationToken));
+    Task<Guid> Execute(CreateOrderRequest createOrder,
+        CancellationToken cancellationToken = default(CancellationToken));
 }
 
 public class CreateOrderService : ICreateOrderService
 {
     private readonly IOrderRepository _orderRepository;
     private readonly IDomainMessagePublisher _domainMessagePublisher;
+    private readonly IProductNameService _productNameService;
 
-    public CreateOrderService(IOrderRepository orderRepository, IDomainMessagePublisher domainMessagePublisher)
+    public CreateOrderService(IOrderRepository orderRepository, IDomainMessagePublisher domainMessagePublisher,
+        IProductNameService productNameService)
     {
         _orderRepository = orderRepository;
         _domainMessagePublisher = domainMessagePublisher;
+        _productNameService = productNameService;
     }
 
 
-    public async Task<Guid> Execute(CreateOrderRequest createOrder, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Guid> Execute(CreateOrderRequest createOrder,
+        CancellationToken cancellationToken = default(CancellationToken))
     {
         Guid createdOrderId = Guid.NewGuid();
 
@@ -36,11 +43,13 @@ public class CreateOrderService : ICreateOrderService
 
         await _orderRepository.Save(orderDetails, cancellationToken);
 
-        OrderResponse orderResponse = new OrderResponse(orderDetails.Id, orderDetails.Status.ToString(), orderDetails.Delivery, orderDetails.PaymentInformation,
-            orderDetails.Products
-                .Select(p => new ProductQuantityName(p.ProductId, p.Quantity, "fakename"))
-                .ToList());//the name is temporal, it will be completed in the next episodes.
-        
+        var products = await orderDetails.Products
+            .SelectAsync(async p => new ProductQuantityName(p.ProductId, p.Quantity,
+                await _productNameService.GetProductName(p.ProductId, cancellationToken)));
+
+        OrderResponse orderResponse = new OrderResponse(orderDetails.Id, orderDetails.Status.ToString(),
+            orderDetails.Delivery, orderDetails.PaymentInformation, products.ToList());
+
         await _domainMessagePublisher.Publish(orderResponse, routingKey: "order", cancellationToken: cancellationToken);
         return createdOrderId;
     }

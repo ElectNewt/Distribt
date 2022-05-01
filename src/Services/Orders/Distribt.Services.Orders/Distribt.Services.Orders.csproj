@@ -12,6 +12,7 @@
     <!--Reference to the shared setup project and the global usings-->
     <ProjectReference Include="..\..\..\Shared\Distribt.Shared.Setup\Distribt.Shared.Setup.csproj" />
     <Compile Include="..\..\..\Shared\Distribt.Shared.Setup\GlobalUsings.cs" Link="GlobalUsings.cs" />
+    <ProjectReference Include="..\Distribt.Services.Orders.BusinessLogic\Distribt.Services.Orders.BusinessLogic.csproj" />
     <ProjectReference Include="..\Distribt.Services.Orders.Dto\Distribt.Services.Orders.Dto.csproj" />
   </ItemGroup>
 

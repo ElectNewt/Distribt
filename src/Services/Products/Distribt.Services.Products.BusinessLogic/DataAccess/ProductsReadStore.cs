@@ -42,7 +42,9 @@ public class ProductsReadStore : IProductsReadStore
         FilterDefinition<FullProductResponseEntity> filter = Builders<FullProductResponseEntity>.Filter.Eq("Id", id);
 
         FullProductResponseEntity entity =
-            await collection.Find(filter).SingleOrDefaultAsync(cancellationToken: cancellationToken);
+            await collection.Find(filter).FirstOrDefaultAsync(cancellationToken)
+            ?? new FullProductResponseEntity();
+        
         entity.Id ??= id;
         entity.Details = details;
 

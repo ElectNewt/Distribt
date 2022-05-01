@@ -37,7 +37,8 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 * [Registro de servicios](https://www.netmentor.es/entrada/service-registry-discovery-consul) con Consul (service discovery / Service registry)
 * [Sistema de logs](https://www.netmentor.es/entrada/servicio-logs-graylog) con GrayLog y SeriLog.
 * [CQRS](https://www.netmentor.es/entrada/patron-cqrs-explicado-10-minutos) para separar lecturas de escrituras.
-* [Event Sourcing](https://www.netmentor.es/entrada/event-sourcing-explicado-facil) juto a MongoDb para almacenar los eventos.
+* [Event Sourcing](https://www.netmentor.es/entrada/event-sourcing-explicado-facil) junto a MongoDb para almacenar los eventos.
+* [Eventual Consistency](https://www.netmentor.es/entrada/consistencia-eventual-microservicios) usando comunicación asíncrona para sincronizar los diferentes microservicios
 * y mucho más (en construcción)
 
 

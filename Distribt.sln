@@ -81,6 +81,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.Databases.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.EventSourcing", "src\Shared\Distribt.Shared.EventSourcing\Distribt.Shared.EventSourcing.csproj", "{8858633A-CCE1-423F-9FFD-3CB7A6354ED6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Orders.BusinessLogic", "src\Services\Orders\Distribt.Services.Orders.BusinessLogic\Distribt.Services.Orders.BusinessLogic.csproj", "{2C8756C1-2FD0-42C6-A13A-0675B9BFEC37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -187,6 +189,10 @@ Global
 		{8858633A-CCE1-423F-9FFD-3CB7A6354ED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8858633A-CCE1-423F-9FFD-3CB7A6354ED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8858633A-CCE1-423F-9FFD-3CB7A6354ED6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C8756C1-2FD0-42C6-A13A-0675B9BFEC37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C8756C1-2FD0-42C6-A13A-0675B9BFEC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C8756C1-2FD0-42C6-A13A-0675B9BFEC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C8756C1-2FD0-42C6-A13A-0675B9BFEC37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -227,6 +233,7 @@ Global
 		{7B29CB53-0161-48BD-AFAD-6C3FA51DED4A} = {E93B860C-F098-4DBD-8C28-B7A5B3E73D20}
 		{86ED7F06-EB4E-403A-82F0-56EF5D029BBC} = {E93B860C-F098-4DBD-8C28-B7A5B3E73D20}
 		{8858633A-CCE1-423F-9FFD-3CB7A6354ED6} = {CE3861D4-4B49-43A7-ADCD-BF7D076E9F9D}
+		{2C8756C1-2FD0-42C6-A13A-0675B9BFEC37} = {5CA04AE7-BB29-4752-83E3-DA1ACAC05504}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3532EB9C-D36A-4A7D-9494-BBC170208D46}

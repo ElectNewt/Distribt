@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\Distribt.Shared.Setup\Distribt.Shared.Setup.csproj" />
+      <ProjectReference Include="..\Distribt.Services.Orders.BusinessLogic\Distribt.Services.Orders.BusinessLogic.csproj" />
       <ProjectReference Include="..\Distribt.Services.Orders.Dto\Distribt.Services.Orders.Dto.csproj" />
     </ItemGroup>
 
