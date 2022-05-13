@@ -8,7 +8,7 @@ namespace Distribt.Services.Orders.Services;
 
 public interface IGetOrderService
 {
-    Task<OrderResponse> Execute(Guid orderId, CancellationToken cancellationToken = default(CancellationToken));
+    Task<Result<OrderResponse>> Execute(Guid orderId, CancellationToken cancellationToken = default(CancellationToken));
 }
 
 public class GetOrderService : IGetOrderService
@@ -23,17 +23,32 @@ public class GetOrderService : IGetOrderService
     }
 
 
-    public async Task<OrderResponse> Execute(Guid orderId,
+    public async Task<Result<OrderResponse>> Execute(Guid orderId,
         CancellationToken cancellationToken = default(CancellationToken))
     {
-        OrderDetails orderDetails = await _orderRepository.GetById(orderId, cancellationToken);
-        //on a real scenario this implementation will be much bigger.
-        
+        return await GetOrderDetails(orderId, cancellationToken)
+            .Bind(x => MapToOrderResponse(x, cancellationToken));
+    }
+
+    private async Task<Result<OrderDetails>> GetOrderDetails(Guid orderId,
+        CancellationToken cancellationToken = default(CancellationToken))
+    {
+        //#27 the aggregate is never returning null, but i think it Should.
+        OrderDetails? orderDetails = await _orderRepository.GetById(orderId, cancellationToken);
+        if (orderDetails == null)
+            return Result.NotFound<OrderDetails>($"Order {orderId} not found");
+
+        return orderDetails;
+    }
+
+    private async Task<Result<OrderResponse>> MapToOrderResponse(OrderDetails orderDetails,
+        CancellationToken cancellationToken = default(CancellationToken))
+    {
         //SelectAsync is a custom method, go to the source code to check it out 
         var products = await orderDetails.Products
             .SelectAsync(async p => new ProductQuantityName(p.ProductId, p.Quantity,
                 await _productNameService.GetProductName(p.ProductId, cancellationToken)));
-        
+
         return new OrderResponse(orderDetails.Id, orderDetails.Status.ToString(), orderDetails.Delivery,
             orderDetails.PaymentInformation, products.ToList());
     }

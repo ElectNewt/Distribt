@@ -21,6 +21,7 @@ public class AggregateRepository<TAggregate> : IAggregateRepository<TAggregate>
         _eventStore = eventStore;
     }
 
+    //TODO: Investigate if this TAggregate should return null or not. #27
     public async Task<TAggregate> GetByIdAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
     {
         var events =

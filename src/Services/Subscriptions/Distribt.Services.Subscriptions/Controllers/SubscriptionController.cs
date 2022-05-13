@@ -1,4 +1,5 @@
-﻿using Distribt.Services.Subscriptions.Dtos;
+﻿using System.Net;
+using Distribt.Services.Subscriptions.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Distribt.Services.Subscriptions.Controllers;
@@ -15,17 +16,18 @@ public class SubscriptionController
     }
 
     [HttpPost(Name = "subscribe")]
-    public async Task<bool> Subscribe(SubscriptionDto subscription)
+    [ProducesResponseType(typeof(ResultDto<bool>), (int)HttpStatusCode.Accepted)]
+    public async Task<IActionResult> Subscribe(SubscriptionDto subscription)
     {
         await _integrationMessagePublisher.Publish(subscription);
-        return true;
+        return true.Success().ToActionResult();
     }
 
     [HttpDelete(Name = "unsubscribe")]
-    public Task<bool> Unsubscribe(SubscriptionDto subscription)
+    [ProducesResponseType(typeof(ResultDto<bool>), (int)HttpStatusCode.Accepted)]
+    public Task<IActionResult> Unsubscribe(SubscriptionDto subscription)
     {
-        //TODO: logic 
-        return Task.FromResult(true);
+        return true.Success().Async().ToActionResult();
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using Distribt.Services.Orders.Dto;
+﻿using System.Net;
+using Distribt.Services.Orders.Dto;
 using Distribt.Services.Orders.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,11 @@ public class OrderController
     private readonly IGetOrderService _getOrderService;
     private readonly IOrderPaidService _orderPaidService;
     private readonly IOrderDispatchedService _orderDispatchedService;
-    
+
 
     public OrderController(ICreateOrderService createOrderService,
-        IGetOrderService getOrderService, IOrderPaidService orderPaidService, IOrderDispatchedService orderDispatchedService)
+        IGetOrderService getOrderService, IOrderPaidService orderPaidService,
+        IOrderDispatchedService orderDispatchedService)
     {
         _createOrderService = createOrderService;
         _getOrderService = getOrderService;
@@ -24,8 +26,12 @@ public class OrderController
     }
 
     [HttpGet("{orderId}")]
-    public async Task<OrderResponse> GetOrder(Guid orderId)
-        => await _getOrderService.Execute(orderId);
+    [ProducesResponseType(typeof(ResultDto<OrderResponse>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(ResultDto<OrderResponse>), (int)HttpStatusCode.NotFound)]
+    public async Task<IActionResult> GetOrder(Guid orderId)
+        => await _getOrderService.Execute(orderId)
+            .UseSuccessHttpStatusCode(HttpStatusCode.OK)
+            .ToActionResult();
 
 
     [HttpGet("getorderstatus/{orderId}")]
@@ -35,22 +41,31 @@ public class OrderController
     }
 
     [HttpPost("create")]
-    public async Task<ActionResult<Guid>> CreateOrder(CreateOrderRequest createOrderRequest,
+    [ProducesResponseType(typeof(ResultDto<CreateOrderResponse>), (int)HttpStatusCode.Created)]
+    public async Task<IActionResult> CreateOrder(CreateOrderRequest createOrderRequest,
         CancellationToken cancellationToken = default(CancellationToken))
     {
-        Guid orderId = await _createOrderService.Execute(createOrderRequest, cancellationToken);
-        return new AcceptedResult($"getorderstatus/{orderId}", orderId);
+        return await _createOrderService.Execute(createOrderRequest, cancellationToken)
+            .UseSuccessHttpStatusCode(HttpStatusCode.Created)
+            .ToActionResult();
     }
 
     [HttpPut("markaspaid")]
-    public async Task OrderPaid(Guid orderId, CancellationToken cancellationToken = default(CancellationToken))
-        => await _orderPaidService.Execute(orderId, cancellationToken);
+    [ProducesResponseType(typeof(ResultDto<bool>), (int)HttpStatusCode.Accepted)]
+    public async Task<IActionResult> OrderPaid(Guid orderId,
+        CancellationToken cancellationToken = default(CancellationToken))
+        => await _orderPaidService.Execute(orderId, cancellationToken)
+            .Success().Async().ToActionResult();
 
     [HttpPut("markasdispatched")]
+    [ProducesResponseType(typeof(ResultDto<bool>), (int)HttpStatusCode.Accepted)]
     public async Task OrderDispatched(Guid orderId, CancellationToken cancellationToken = default(CancellationToken))
-        => await _orderDispatchedService.Execute(orderId, cancellationToken);
-    
+        => await _orderDispatchedService.Execute(orderId, cancellationToken)
+            .Success().Async().ToActionResult();
+
     [HttpPut("markasdelivered")]
+    [ProducesResponseType(typeof(ResultDto<bool>), (int)HttpStatusCode.Accepted)]
     public async Task OrderDelivered(Guid orderId, CancellationToken cancellationToken = default(CancellationToken))
-        => await _orderDispatchedService.Execute(orderId, cancellationToken);
+        => await _orderDispatchedService.Execute(orderId, cancellationToken)
+            .Success().Async().ToActionResult();
 }

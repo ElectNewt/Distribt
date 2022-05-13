@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Netmentor.ROP.ApiExtensions" Version="1.0.10" />
     <PackageReference Include="Scrutor" Version="4.1.0" />
   </ItemGroup>
 
