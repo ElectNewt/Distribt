@@ -1,3 +1,4 @@
+using Distribt.Shared.Discovery;
 using Distribt.Shared.Logging.Loggers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -7,15 +8,20 @@ namespace Distribt.Shared.Logging;
 
 public static class ConfigureLogger
 {
-    public static IHostBuilder ConfigureSerilog(this IHostBuilder builder)
+    public static IHostBuilder ConfigureSerilog(this IHostBuilder builder, IServiceDiscovery discovery)
         => builder.UseSerilog((context, loggerConfiguration)
-            => ConfigureSerilogLogger(loggerConfiguration, context.Configuration));
+            => ConfigureSerilogLogger(loggerConfiguration, context.Configuration, discovery));
 
     private static LoggerConfiguration ConfigureSerilogLogger(LoggerConfiguration loggerConfiguration,
-        IConfiguration configuration)
+        IConfiguration configuration, IServiceDiscovery discovery)
     {
         GraylogLoggerConfiguration graylogLogger = new GraylogLoggerConfiguration();
         configuration.GetSection("Logging:Graylog").Bind(graylogLogger);
+        //Get graylog info from consul
+       
+        DiscoveryData discoveryData = discovery.GetDiscoveryData(DiscoveryServices.Graylog).Result;
+        graylogLogger.Host = discoveryData.Server;
+        graylogLogger.Port = discoveryData.Port;
         ConsoleLoggerConfiguration consoleLogger = new ConsoleLoggerConfiguration();
         configuration.GetSection("Logging:Console").Bind(consoleLogger);
 

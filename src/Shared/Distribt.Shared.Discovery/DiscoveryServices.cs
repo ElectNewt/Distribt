@@ -6,6 +6,7 @@ public class DiscoveryServices
     public const string Secrets = "SecretManager";
     public const string MySql = "MySql";
     public const string MongoDb = "MongoDb";
+    public const string Graylog = "Graylog";
 
     public class Microservices
     {
