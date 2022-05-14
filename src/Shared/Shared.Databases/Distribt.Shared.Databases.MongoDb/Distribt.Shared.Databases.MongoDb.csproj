@@ -10,5 +10,9 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
       <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\Distribt.Shared.Discovery\Distribt.Shared.Discovery.csproj" />
+      <ProjectReference Include="..\..\Distribt.Shared.Secrets\Distribt.Shared.Secrets.csproj" />
+    </ItemGroup>
     
 </Project>

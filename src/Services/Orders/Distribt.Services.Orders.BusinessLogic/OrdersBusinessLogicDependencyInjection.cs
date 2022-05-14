@@ -1,15 +1,16 @@
 using Distribt.Services.Orders.BusinessLogic.Data.External;
 using Distribt.Services.Orders.BusinessLogic.Services.External;
 using Distribt.Shared.Setup.Databases;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Distribt.Services.Orders.BusinessLogic;
 
 public static class OrdersBusinessLogicDependencyInjection
 {
-    public static void AddProductService(this IServiceCollection serviceCollection)
+    public static void AddProductService(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.AddDistribtMongoDbConnectionProvider();
+        serviceCollection.AddDistribtMongoDbConnectionProvider(configuration);
         serviceCollection.AddScoped<IProductRepository, ProductRepository>();
         serviceCollection.AddScoped<IProductNameService, ProductNameService>();
         serviceCollection.AddHttpClient();

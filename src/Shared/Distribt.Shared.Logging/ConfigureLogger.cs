@@ -17,8 +17,6 @@ public static class ConfigureLogger
     {
         GraylogLoggerConfiguration graylogLogger = new GraylogLoggerConfiguration();
         configuration.GetSection("Logging:Graylog").Bind(graylogLogger);
-        //Get graylog info from consul
-       
         DiscoveryData discoveryData = discovery.GetDiscoveryData(DiscoveryServices.Graylog).Result;
         graylogLogger.Host = discoveryData.Server;
         graylogLogger.Port = discoveryData.Port;

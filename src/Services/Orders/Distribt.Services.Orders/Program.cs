@@ -7,7 +7,7 @@ WebApplication app = DefaultDistribtWebApplication.Create(args, webappBuilder =>
 {
     MongoMapping.RegisterClasses();
     webappBuilder.Services.AddServiceBusDomainPublisher(webappBuilder.Configuration);
-    webappBuilder.Services.AddDistribtMongoDbConnectionProvider();
+    webappBuilder.Services.AddDistribtMongoDbConnectionProvider(webappBuilder.Configuration);
     webappBuilder.Services.AddEventSourcing(webappBuilder.Configuration);
     webappBuilder.Services.AddScoped<IOrderRepository, OrderRepository>();
     webappBuilder.Services.AddScoped<ICreateOrderService, CreateOrderService>();
@@ -15,7 +15,7 @@ WebApplication app = DefaultDistribtWebApplication.Create(args, webappBuilder =>
     webappBuilder.Services.AddScoped<IOrderPaidService, OrderPaidService>();
     webappBuilder.Services.AddScoped<IOrderDispatchedService, OrderDispatchedService>();
     webappBuilder.Services.AddScoped<IOrderDeliveredService, OrderDeliveredService>();
-    webappBuilder.Services.AddProductService();
+    webappBuilder.Services.AddProductService(webappBuilder.Configuration);
 });
 
 

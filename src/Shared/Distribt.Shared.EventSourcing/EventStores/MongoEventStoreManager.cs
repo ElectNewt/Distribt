@@ -9,18 +9,18 @@ namespace Distribt.Shared.EventSourcing.EventStores;
 public class MongoEventStoreManager : IEventStoreManager
 {
     private readonly IMongoDatabase _mongoDatabase;
-    private readonly EventStoreOptions _mongoDbEventStoreOptions;
+    private readonly MongoEventStoreConfiguration _mongoDbMongoEventStoreConfiguration;
 
     private IMongoCollection<AggregateChangeDto> _changes =>
-        _mongoDatabase.GetCollection<AggregateChangeDto>(_mongoDbEventStoreOptions.CollectionName);
+        _mongoDatabase.GetCollection<AggregateChangeDto>(_mongoDbMongoEventStoreConfiguration.CollectionName);
 
     
-    public MongoEventStoreManager(IMongoDbConnectionProvider mongoDbConnectionProvider, IOptions<EventStoreOptions> mongoDbEventStoreOptions)
+    public MongoEventStoreManager(IMongoDbConnectionProvider mongoDbConnectionProvider, IOptions<MongoEventStoreConfiguration> mongoDbEventStoreOptions)
     {
-        _mongoDbEventStoreOptions = mongoDbEventStoreOptions.Value;
-        //TODO: #20
+        _mongoDbMongoEventStoreConfiguration = mongoDbEventStoreOptions.Value;
+        //TODO: #29; investigate the usage of IMongoDatabase
         var mongoClient = new MongoClient(mongoDbConnectionProvider.GetMongoUrl());
-        _mongoDatabase = mongoClient.GetDatabase(_mongoDbEventStoreOptions.DatabaseName);;
+        _mongoDatabase = mongoClient.GetDatabase(_mongoDbMongoEventStoreConfiguration.DatabaseName);;
         
     }
 
