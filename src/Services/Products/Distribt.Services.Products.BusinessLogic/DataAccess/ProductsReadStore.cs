@@ -13,6 +13,12 @@ public interface IProductsReadStore
 
     Task<bool> UpsertProductViewDetails(int id, ProductDetails details,
         CancellationToken cancellationToken = default(CancellationToken));
+
+    Task<bool> UpdateProductStock(int id, int stock,
+        CancellationToken cancellationToken = default(CancellationToken));
+
+    Task<bool> UpdateProductPrice(int id, decimal price,
+        CancellationToken cancellationToken = default(CancellationToken));
 }
 
 public class ProductsReadStore : IProductsReadStore
@@ -52,12 +58,59 @@ public class ProductsReadStore : IProductsReadStore
 
         entity.Id ??= id;
         entity.Details = details;
+        entity.Stock = 0; //default
+        entity.Price = 0; //Default
 
         var replaceOne = await collection.ReplaceOneAsync(filter,
             entity,
             new ReplaceOptions()
             {
                 IsUpsert = true
+            }, cancellationToken);
+
+        return replaceOne.IsAcknowledged;
+    }
+
+    public async Task<bool> UpdateProductStock(int id, int stock,
+        CancellationToken cancellationToken = default(CancellationToken))
+    {
+        IMongoCollection<FullProductResponseEntity>
+            collection = _mongoDatabase.GetCollection<FullProductResponseEntity>(CollectionName);
+
+        FilterDefinition<FullProductResponseEntity> filter = Builders<FullProductResponseEntity>.Filter.Eq("Id", id);
+
+        FullProductResponseEntity entity =
+            await collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
+
+
+        entity.Stock = stock;
+        var replaceOne = await collection.ReplaceOneAsync(filter,
+            entity,
+            new ReplaceOptions()
+            {
+            }, cancellationToken);
+
+        return replaceOne.IsAcknowledged;
+    }
+
+    public async Task<bool> UpdateProductPrice(int id, decimal price,
+        CancellationToken cancellationToken = default(CancellationToken))
+    {
+        IMongoCollection<FullProductResponseEntity>
+            collection = _mongoDatabase.GetCollection<FullProductResponseEntity>(CollectionName);
+
+        FilterDefinition<FullProductResponseEntity> filter = Builders<FullProductResponseEntity>.Filter.Eq("Id", id);
+
+        FullProductResponseEntity entity =
+                await collection.Find(filter).FirstOrDefaultAsync(cancellationToken)
+            ;
+
+
+        entity.Price = (double)price;
+        var replaceOne = await collection.ReplaceOneAsync(filter,
+            entity,
+            new ReplaceOptions()
+            {
             }, cancellationToken);
 
         return replaceOne.IsAcknowledged;
@@ -70,7 +123,7 @@ public class ProductsReadStore : IProductsReadStore
         public int? Id { get; set; }
         public ProductDetails? Details { get; set; }
         public int Stock { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         public FullProductResponseEntity()
         {
@@ -79,7 +132,7 @@ public class ProductsReadStore : IProductsReadStore
 
         public FullProductResponse ToFullProductResponse()
         {
-            return new FullProductResponse((int)Id!, Details!, Stock, Price);
+            return new FullProductResponse((int)Id!, Details!, Stock, (decimal)Price);
         }
     }
 }
