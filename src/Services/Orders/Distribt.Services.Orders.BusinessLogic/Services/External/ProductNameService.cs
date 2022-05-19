@@ -46,6 +46,7 @@ public class ProductNameService : IProductNameService
         CancellationToken cancellationToken = default(CancellationToken))
     {
         await _productRepository.UpsertProductName(id, name, cancellationToken);
+        await _cache.RemoveAsync($"ORDERS-PRODUCT::{id}", cancellationToken);
         await _cache.SetStringAsync($"ORDERS-PRODUCT::{id}", name, cancellationToken);
     }
    
