@@ -1,10 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <RootNamespace>Distribt.Shared.Logging</RootNamespace>
     </PropertyGroup>
 
@@ -19,5 +15,6 @@
     <ItemGroup>
       <ProjectReference Include="..\Distribt.Shared.Discovery\Distribt.Shared.Discovery.csproj" />
     </ItemGroup>
-
+    
+    <Import Project="../../../GlobalSettings.msbuild" />
 </Project>

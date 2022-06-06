@@ -1,0 +1,30 @@
+<Project>
+  <PropertyGroup>
+    <Authors>Ivan Abad</Authors>
+    <Company>NetMentor</Company>
+    <Product>NetMentor Distribt</Product>
+    <Copyright>Copyright NetMentor 2022</Copyright>
+    <Version>1.0.0</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/ElectNewt/Distribt</RepositoryUrl>
+    <Description>Library to build distributed applications</Description>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	<LangVersion>10.0</LangVersion>
+	<TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Description>Configuration=Debug</Description>
+    <Configuration>Debug</Configuration>
+    <Description>Configuration=Debug</Description>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Description>Configuration=Release</Description>
+    <Configuration>Release</Configuration>
+    <Description>Configuration=Release</Description>
+  </PropertyGroup>
+</Project>
