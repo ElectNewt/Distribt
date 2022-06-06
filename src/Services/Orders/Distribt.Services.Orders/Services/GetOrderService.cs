@@ -33,8 +33,7 @@ public class GetOrderService : IGetOrderService
     private async Task<Result<OrderDetails>> GetOrderDetails(Guid orderId,
         CancellationToken cancellationToken = default(CancellationToken))
     {
-        //#27 the aggregate is never returning null, but i think it Should.
-        OrderDetails? orderDetails = await _orderRepository.GetById(orderId, cancellationToken);
+        OrderDetails? orderDetails = await _orderRepository.GetByIdOrDefault(orderId, cancellationToken);
         if (orderDetails == null)
             return Result.NotFound<OrderDetails>($"Order {orderId} not found");
 

@@ -6,8 +6,8 @@ namespace Distribt.Shared.EventSourcing;
 public interface IAggregateRepository<TAggregate>
 {
     Task<TAggregate> GetByIdAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken));
+    Task<TAggregate?> GetByIdOrDefaultAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken));
     Task SaveAsync(TAggregate aggregate, CancellationToken cancellationToken = default(CancellationToken));
-        
 }
 
 public class AggregateRepository<TAggregate> : IAggregateRepository<TAggregate>
@@ -21,15 +21,22 @@ public class AggregateRepository<TAggregate> : IAggregateRepository<TAggregate>
         _eventStore = eventStore;
     }
 
-    //TODO: Investigate if this TAggregate should return null or not. #27
-    public async Task<TAggregate> GetByIdAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<TAggregate> GetByIdAsync(Guid id,
+        CancellationToken cancellationToken = default(CancellationToken))
+        => await GetByIdOrDefaultAsync(id, cancellationToken) ??
+           throw new ApplicationException(
+               "seems that the aggregate cannot be found, please use GetByIdOrDefaultAsync");
+
+
+    public async Task<TAggregate?> GetByIdOrDefaultAsync(Guid id,
+        CancellationToken cancellationToken = default(CancellationToken))
     {
         var events =
-        (await _eventStore.GetEventsForAggregate(AggregateName, id, cancellationToken)).ToList();
+            (await _eventStore.GetEventsForAggregate(AggregateName, id, cancellationToken)).ToList();
         if (!events.Any())
-            return null!;
+            return null;
 
-        var obj = (TAggregate) FormatterServices.GetUninitializedObject(typeof(TAggregate));
+        var obj = (TAggregate)FormatterServices.GetUninitializedObject(typeof(TAggregate));
         obj.Initialize(id);
         obj.LoadFromHistory(events);
         return obj;
@@ -41,12 +48,10 @@ public class AggregateRepository<TAggregate> : IAggregateRepository<TAggregate>
         if (uncommittedEvents.Count == 0) return;
 
         await _eventStore.SaveEvents(
-                AggregateName,
-                aggregate.Id,
-                uncommittedEvents,
-                aggregate.Version, cancellationToken);
+            AggregateName,
+            aggregate.Id,
+            uncommittedEvents,
+            aggregate.Version, cancellationToken);
         aggregate.MarkChangesAsCommitted();
     }
-
 }
-
