@@ -2,6 +2,7 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -14,6 +15,7 @@ public static class DefaultDistribtWebApplication
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+        builder.Configuration.AddConfiguration(HealthCheckHelper.BuildBasicHealthCheck());
         builder.Services.AddHealthChecks();
         builder.Services.AddHealthChecksUI().AddInMemoryStorage();
         builder.Services.AddControllers();
@@ -52,9 +54,6 @@ public static class DefaultDistribtWebApplication
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });
         
-        //if i have this information normalized, and is always the same,
-         //Should I build in memory the configuration section to save every app to have the
-         //healthcheck section in the ui?
         webApp.UseHealthChecksUI(config =>
         {
             config.UIPath = "/health-ui";            
