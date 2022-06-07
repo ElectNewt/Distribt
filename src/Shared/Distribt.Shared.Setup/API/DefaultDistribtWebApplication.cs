@@ -15,6 +15,7 @@ public static class DefaultDistribtWebApplication
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddHealthChecks();
+        builder.Services.AddHealthChecksUI().AddInMemoryStorage();
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -42,13 +43,23 @@ public static class DefaultDistribtWebApplication
             webApp.UseSwagger();
             webApp.UseSwaggerUI();
         }
+
         webApp.MapHealthChecks("/health");
-        
+
         webApp.UseHealthChecks("/health", new HealthCheckOptions()
         {
             Predicate = _ => true,
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });
+        
+        //if i have this information normalized, and is always the same,
+         //Should I build in memory the configuration section to save every app to have the
+         //healthcheck section in the ui?
+        webApp.UseHealthChecksUI(config =>
+        {
+            config.UIPath = "/health-ui";            
+        });
+
 
         webApp.UseHttpsRedirection();
         webApp.UseAuthorization();

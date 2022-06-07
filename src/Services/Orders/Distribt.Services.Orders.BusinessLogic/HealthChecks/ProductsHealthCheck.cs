@@ -28,6 +28,6 @@ public class ProductsHealthCheck : IHealthCheck
             return HealthCheckResult.Healthy("Product service is healthy");
         }
         
-        return HealthCheckResult.Unhealthy("Product service is down");
+        return HealthCheckResult.Degraded("Product service is down");
     }
 }
