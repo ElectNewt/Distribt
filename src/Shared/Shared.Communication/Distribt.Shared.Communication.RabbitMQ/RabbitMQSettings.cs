@@ -1,3 +1,5 @@
+using RabbitMQ.Client;
+
 namespace Distribt.Shared.Communication.RabbitMQ;
 
 public class RabbitMQSettings
@@ -15,6 +17,12 @@ public class RabbitMQSettings
     public void SetHostName(string hostname)
     {
         Hostname = hostname;
+    }
+
+    public string GetConnectionString()
+    {
+       return
+           $"amqp://{Credentials?.username}:{Credentials?.password}@{Hostname}:{AmqpTcpEndpoint.DefaultAmqpSslPort}/vhost";
     }
 }
 

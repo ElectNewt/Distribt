@@ -1,5 +1,7 @@
 ﻿using Distribt.Shared.Logging;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -12,7 +14,7 @@ public static class DefaultDistribtWebApplication
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-
+        builder.Services.AddHealthChecks();
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -40,7 +42,13 @@ public static class DefaultDistribtWebApplication
             webApp.UseSwagger();
             webApp.UseSwaggerUI();
         }
-
+        webApp.MapHealthChecks("/health");
+        
+        webApp.UseHealthChecks("/health", new HealthCheckOptions()
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
 
         webApp.UseHttpsRedirection();
         webApp.UseAuthorization();

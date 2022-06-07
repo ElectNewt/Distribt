@@ -6,6 +6,7 @@ using Distribt.Shared.Communication.RabbitMQ.Consumer;
 using Distribt.Shared.Communication.RabbitMQ.Publisher;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace Distribt.Shared.Communication.RabbitMQ;
 
@@ -22,7 +23,17 @@ public static class RabbitMQDependencyInjection
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
             x.SetCredentials(rabbitMqCredentialsFactory.Invoke(serviceProvider).Result);
             x.SetHostName(rabbitMqHostName.Invoke(serviceProvider).Result);
+
+            serviceCollection.AddRabbitMqHealthCheck();
         });
+    }
+
+    private static IServiceCollection AddRabbitMqHealthCheck(this IServiceCollection serviceCollection)
+    {
+        ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+        RabbitMQSettings settings = serviceProvider.GetRequiredService<RabbitMQSettings>();
+        serviceCollection.AddHealthChecks().AddRabbitMQ(settings.GetConnectionString(), HealthStatus.Unhealthy);
+        return serviceCollection;
     }
     
     /// <summary>

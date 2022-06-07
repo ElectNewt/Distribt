@@ -1,5 +1,6 @@
 using Distribt.Services.Orders.Aggregates;
 using Distribt.Services.Orders.BusinessLogic;
+using Distribt.Services.Orders.BusinessLogic.HealthChecks;
 using Distribt.Services.Orders.Data;
 using Distribt.Services.Orders.Services;
 
@@ -16,6 +17,7 @@ WebApplication app = DefaultDistribtWebApplication.Create(args, webappBuilder =>
     webappBuilder.Services.AddScoped<IOrderDispatchedService, OrderDispatchedService>();
     webappBuilder.Services.AddScoped<IOrderDeliveredService, OrderDeliveredService>();
     webappBuilder.Services.AddProductService(webappBuilder.Configuration);
+    webappBuilder.Services.AddHealthChecks().AddCheck<ProductsHealthCheck>(nameof(ProductsHealthCheck));
 });
 
 
