@@ -41,6 +41,7 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 * [Eventual Consistency](https://www.netmentor.es/entrada/consistencia-eventual-microservicios) usando comunicación asíncrona para sincronizar los diferentes microservicios.
 * [Unificación de las API](https://www.netmentor.es/entrada/unificar-respuestas-api) para tener una respuesta consistente con [Rop](https://www.netmentor.es/entrada/railway-oriented-programming).
 * [Patrón SAGA](https://www.netmentor.es/entrada/patron-saga) para las transacciones distribuidas.
+* [Health checks](https://www.netmentor.es/entrada/health-checks-asp-net) Para la visibilidad de la salud de nuestros microservicios.
 * y mucho más (en construcción)
 
 
