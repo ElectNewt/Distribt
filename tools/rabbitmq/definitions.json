@@ -27,7 +27,7 @@
     {"name":"subscription.exchange","vhost":"/","type":"topic","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
     {"name":"dead-letter.exchange","vhost":"/","type":"direct","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
     {"name":"order.exchange","vhost":"/","type":"topic","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
-    {"name":"products.exchange","vhost":"/","type":"topic","durable":true,"auto_delete":false,"internal":false,"arguments":{}},
+    {"name":"products.exchange","vhost":"/","type":"topic","durable":true,"auto_delete":false,"internal":false,"arguments":{}}
   ],
   "bindings": [
     {"source":"api.public.exchange","vhost":"/","destination":"subscription.exchange","destination_type":"exchange","routing_key":"subscription","arguments":{}},

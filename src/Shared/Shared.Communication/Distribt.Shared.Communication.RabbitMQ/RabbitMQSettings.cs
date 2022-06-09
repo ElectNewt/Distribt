@@ -18,13 +18,7 @@ public class RabbitMQSettings
     {
         Hostname = hostname;
     }
-
-    public string GetConnectionString()
-    {
-       return
-           $"amqp://{Credentials?.username}:{Credentials?.password}@{Hostname}:{AmqpTcpEndpoint.DefaultAmqpSslPort}/vhost";
-    }
-}
+ }
 
 public record RabbitMQCredentials
 {
