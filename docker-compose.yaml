@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   rabbitmq:
-    image: rabbitmq:3.8-management-alpine #management version needed to be able to have a User interface
+    image: rabbitmq:3.8.34-management-alpine #management version needed to be able to have a User interface
     container_name: rabbitmq
     ports:
         - 5672:5672
