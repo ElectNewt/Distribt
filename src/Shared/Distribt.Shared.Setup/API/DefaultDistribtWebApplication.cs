@@ -1,11 +1,11 @@
 ﻿using Distribt.Shared.Logging;
+using Distribt.Shared.Setup.Observability;
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+
 
 namespace Distribt.Shared.Setup.API;
 
@@ -27,7 +27,9 @@ public static class DefaultDistribtWebApplication
         builder.Services.AddServiceDiscovery(builder.Configuration);
         builder.Services.AddSecretManager(builder.Configuration);
         builder.Services.AddLogging(logger => logger.AddSerilog());
-
+        builder.Services.AddTracing(builder.Configuration);
+        builder.Services.AddMetrics(builder.Configuration);
+        
         builder.Host.ConfigureSerilog(builder.Services.BuildServiceProvider().GetRequiredService<IServiceDiscovery>());
 
         if (webappBuilder != null)

@@ -103,4 +103,44 @@ services:
       - 3307:3306
     volumes:
       - ./tools/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-
+  opentelemetry-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: open_telemetry_collector
+    command: [ "--config=/etc/otel-collector-config.yaml" ]
+    volumes:
+      - ./tools/telemetry/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+      - ./tools/telemetry/logs:/etc/output:rw # Store the logs (not commited in git)
+    ports:
+      - "8888:8888"   # Prometheus metrics exposed by the collector
+      - "8889:8889"   # Prometheus exporter metrics
+      - "4317:4317"   # OTLP gRPC receiver
+  prometheus:
+    image: bitnami/prometheus
+    container_name: prometheus
+    volumes:
+      - ./tools/telemetry/prometheus.yaml:/etc/prometheus/prometheus.yml
+#    command:
+#      - '--config.file=/etc/prometheus/prometheus.yml'
+#      - '--storage.tsdb.path=/prometheus'
+#      - '--web.console.libraries=/etc/prometheus/console_libraries'
+#      - '--web.console.templates=/etc/prometheus/consoles'
+#      - '--storage.tsdb.retention.time=200h'
+#      - '--web.enable-lifecycle'
+    ports:
+      - 9090:9090
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./tools/telemetry/grafana_datasources.yaml:/etc/grafana/provisioning/datasources/all.yaml
+    ports:
+      - 3000:3000
+  zipkin:
+    container_name: zipkin-traces
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"
