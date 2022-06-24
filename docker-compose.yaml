@@ -7,8 +7,9 @@ services:
         - 5672:5672
         - 15672:15672
     volumes: 
-          - ./tools/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
-          - ./tools/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+        - ./tools/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+        - ./tools/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+        - ./tools/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
   consul:
     container_name: consul
     image: consul
@@ -119,13 +120,6 @@ services:
     container_name: prometheus
     volumes:
       - ./tools/telemetry/prometheus.yaml:/etc/prometheus/prometheus.yml
-#    command:
-#      - '--config.file=/etc/prometheus/prometheus.yml'
-#      - '--storage.tsdb.path=/prometheus'
-#      - '--web.console.libraries=/etc/prometheus/console_libraries'
-#      - '--web.console.templates=/etc/prometheus/consoles'
-#      - '--storage.tsdb.retention.time=200h'
-#      - '--web.enable-lifecycle'
     ports:
       - 9090:9090
   grafana:

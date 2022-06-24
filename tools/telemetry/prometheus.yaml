@@ -4,3 +4,4 @@ scrape_configs:
     static_configs:
       - targets: ['opentelemetry-collector:8889']
       - targets: ['opentelemetry-collector:8888']
+      - targets: [ 'rabbitmq:15692' ]
