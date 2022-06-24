@@ -26,7 +26,7 @@ Puedes encontrar el proceso de creación del sistema en [mi curso de YouTube](ht
 Alternativamente, si lo prefieres, puedes seguir los post con el código detallado y los razonamientos sobre por qué se ha elegido cada tecnología en mi web [NetMentor - Cruso Distribt](https://www.netmentor.es/curso/sistemas-distribuidos)
 
 
-## Infraestructura [En progreso]
+## Infraestructura
 Hasta ahora hemos visto las siguientes funcionalidades:
 
 
@@ -42,7 +42,8 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 * [Unificación de las API](https://www.netmentor.es/entrada/unificar-respuestas-api) para tener una respuesta consistente con [Rop](https://www.netmentor.es/entrada/railway-oriented-programming).
 * [Patrón SAGA](https://www.netmentor.es/entrada/patron-saga) para las transacciones distribuidas.
 * [Health checks](https://www.netmentor.es/entrada/health-checks-asp-net) Para la visibilidad de la salud de nuestros microservicios.
-* y mucho más (en construcción)
+* [Observabilidad](https://www.netmentor.es/entrada/monitorizacion-sistemas-distribuidos) De nuestro sistema e infraestructura (metricas y traces) con OpenTelemetry, Prometheus, Grafana y Zipkin
+
 
 
 ## Documentación [En progreso]
@@ -64,7 +65,7 @@ Nota: Técnicamente cada carpeta representa un dominio y puede ser su propio rep
 * Shared: código común de las abstracciones.
 
 
-## ¿Cómo ejecutar la aplicación? [En progreso]
+## ¿Cómo ejecutar la aplicación? 
 
 Para ejecutar la aplicación correctamente debes tener [Docker](https://www.netmentor.es/curso/docker) instalado en tu máquina y entender cómo funciona docker-compose.
 
@@ -75,6 +76,8 @@ Eventualmente lo veremos toda la configuración en kubernetes (con [project tye]
 Para poder ejecutar la aplicación correctamente en local, necestiaras ejecutar tanto el fichero `docker-compose` como la configuración para los diferentes servicios utilizados. 
 
 Para ahorrar tiempo he creado un fichero `bash` que ejectua todo `./tools/local-development/up.sh`
+
+Y luego simplemente ejecuta cada aplicacion de forma individual o en un compound para poder testearlas.
 
 ## Dale una estrella ⭐
 Si te gusta el proyecto no dudes en darle una estrella, hacer un fork junto a una PR o incluso apoyar económicamente el proyecto [donando un café](https://www.buymeacoffee.com/netmentor).
