@@ -7,6 +7,7 @@ public class DiscoveryServices
     public const string MySql = "MySql";
     public const string MongoDb = "MongoDb";
     public const string Graylog = "Graylog";
+    public const string OpenTelemetry = "OpenTelemetryCollector";
 
     public class Microservices
     {

@@ -9,15 +9,17 @@ namespace Distribt.Shared.Setup.Observability;
 
 public static class OpenTelemetry
 {
+    private static string? _openTelemetryUrl;
+    
     public static void AddTracing(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
         serviceCollection.AddOpenTelemetryTracing(builder => builder
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(configuration["AppName"]))
             .AddAspNetCoreInstrumentation()
             .AddOtlpExporter(exporter =>
-            {
-                //TODO: call the discovery service to retrieve the correctUrl dinamically
-                exporter.Endpoint = new Uri("http://localhost:4317");
+            { 
+                string url = GetOpenTelemetryCollectorUrl(serviceCollection.BuildServiceProvider()).Result;
+                exporter.Endpoint = new Uri(url);
             })
         );
         ;
@@ -30,8 +32,8 @@ public static class OpenTelemetry
             .AddAspNetCoreInstrumentation()
             .AddOtlpExporter(exporter =>
             {
-                //TODO: call the discovery service to retrieve the correctUrl dinamically
-                exporter.Endpoint = new Uri("http://localhost:4317");
+                string url = GetOpenTelemetryCollectorUrl(serviceCollection.BuildServiceProvider()).Result;
+                exporter.Endpoint = new Uri(url);
             }));
     }
     
@@ -48,6 +50,17 @@ public static class OpenTelemetry
                     options.AddConsoleExporter();
                 }));
     }
-    
+
+    private static async Task<string> GetOpenTelemetryCollectorUrl(IServiceProvider serviceProvider)
+    {
+        if (_openTelemetryUrl != null)
+            return _openTelemetryUrl;
+        
+        
+        var serviceDiscovery = serviceProvider.GetService<IServiceDiscovery>();
+        string openTelemetryLocation = await serviceDiscovery?.GetFullAddress(DiscoveryServices.OpenTelemetry)!;
+        _openTelemetryUrl = $"http://{openTelemetryLocation}";
+        return _openTelemetryUrl;
+    }
     
 }
