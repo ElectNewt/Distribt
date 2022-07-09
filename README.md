@@ -25,6 +25,7 @@ Puedes encontrar el proceso de creación del sistema en [mi curso de YouTube](ht
 
 Alternativamente, si lo prefieres, puedes seguir los post con el código detallado y los razonamientos sobre por qué se ha elegido cada tecnología en mi web [NetMentor - Cruso Distribt](https://www.netmentor.es/curso/sistemas-distribuidos)
 
+Si estás siguiendo el curso vídeo a vídeo tienes diferentes branches en este repositorio con el código de cada vídeo (de forma incremental) aquí:  https://github.com/ElectNewt/Distribt/branches/all 
 
 ## Infraestructura
 Hasta ahora hemos visto las siguientes funcionalidades:
