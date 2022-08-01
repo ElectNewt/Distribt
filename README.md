@@ -51,7 +51,7 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 Puedes encontrar documentación de cada projecto dentro de `Shared` en la carpeta `docs`.
 * Shared.Communication - [Enlace](docs/communication/Readme.md)
 * Shared.Discovery - [Enlace](docs/discovery/Readme.md)
-
+* Shared.Secrets - [Enlace](docs/secrets/Readme.md)
 
 
 ## Descripción del repositorio
