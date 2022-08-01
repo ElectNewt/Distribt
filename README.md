@@ -50,6 +50,7 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 ## Documentación [En progreso]
 Puedes encontrar documentación de cada projecto dentro de `Shared` en la carpeta `docs`.
 * Shared.Communication - [Enlace](docs/communication/Readme.md)
+* Shared.Discovery - [Enlace](docs/discovery/Readme.md)
 
 
 
