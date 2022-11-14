@@ -32,7 +32,7 @@ public class ProductNameService : IProductNameService
 
     public async Task<string> GetProductName(int id, CancellationToken cancellationToken = default(CancellationToken))
     {
-        string value = await _cache.GetStringAsync($"ORDERS-PRODUCT::{id}", cancellationToken);
+        string? value = await _cache.GetStringAsync($"ORDERS-PRODUCT::{id}", cancellationToken);
         if (value!=null)
         {
             return value;
