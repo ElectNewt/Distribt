@@ -44,6 +44,8 @@ Hasta ahora hemos visto las siguientes funcionalidades:
 * [Patrón SAGA](https://www.netmentor.es/entrada/patron-saga) para las transacciones distribuidas.
 * [Health checks](https://www.netmentor.es/entrada/health-checks-asp-net) Para la visibilidad de la salud de nuestros microservicios.
 * [Observabilidad](https://www.netmentor.es/entrada/monitorizacion-sistemas-distribuidos) De nuestro sistema e infraestructura (metricas y traces) con OpenTelemetry, Prometheus, Grafana y Zipkin
+* [API Key](https://www.netmentor.es/entrada/explicacion-api-key) Para las llamadas desde clientes.
+* [Rate Limiting](https://www.netmentor.es/entrada/rate-limiting) Para limitar el uso de recursos.
 
 
 
