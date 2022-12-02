@@ -27,10 +27,9 @@ public class ProductsReadStore : IProductsReadStore
     private const string CollectionName = "Products";
     private readonly IMongoDatabase _mongoDatabase;
 
-    public ProductsReadStore(IMongoDbConnectionProvider mongoDbConnectionProvider,
-        IOptions<DatabaseConfiguration> databaseConfiguration)
+    public ProductsReadStore(MongoUrl mongoUrl, IOptions<DatabaseConfiguration> databaseConfiguration)
     {
-        _mongoClient = new MongoClient(mongoDbConnectionProvider.GetMongoUrl());
+        _mongoClient = new MongoClient(mongoUrl);
         _mongoDatabase = _mongoClient.GetDatabase(databaseConfiguration.Value.DatabaseName);
     }
 

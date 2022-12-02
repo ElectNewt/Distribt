@@ -19,10 +19,9 @@ public class ProductRepository : IProductRepository
     private const string CollectionName = "ProductName";
     private readonly IMongoDatabase _mongoDatabase;
 
-    public ProductRepository(IMongoDbConnectionProvider mongoDbConnectionProvider,
-        IOptions<DatabaseConfiguration> databaseConfiguration)
+    public ProductRepository(MongoUrl mongoUrl, IOptions<DatabaseConfiguration> databaseConfiguration)
     {
-        _mongoClient = new MongoClient(mongoDbConnectionProvider.GetMongoUrl());
+        _mongoClient = new MongoClient(mongoUrl);
         _mongoDatabase = _mongoClient.GetDatabase(databaseConfiguration.Value.DatabaseName);
     }
 

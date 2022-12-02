@@ -1,9 +1,18 @@
 using Distribt.Services.Products.BusinessLogic.DataAccess;
+using Distribt.Shared.Databases.MongoDb;
+using Microsoft.Extensions.Options;
 
-WebApplication app = DefaultDistribtWebApplication.Create(args, builder =>
+WebApplication app = await DefaultDistribtWebApplication.Create(args, async builder =>
 {
-    builder.Services.AddDistribtMongoDbConnectionProvider(builder.Configuration)
-        .AddScoped<IProductsReadStore, ProductsReadStore>();
+    var factory = async (IServiceProvider serviceProvider) =>
+    {
+        var mongoDbConnectionProvider = serviceProvider.GetService<IMongoDbConnectionProvider>() ?? throw new ArgumentNullException();
+        var databaseConfiguration = serviceProvider.GetService<IOptions<DatabaseConfiguration>>() ?? throw new ArgumentNullException();
+        var mongoUrl = await mongoDbConnectionProvider.GetMongoUrl();
+        return new ProductsReadStore(mongoUrl, databaseConfiguration);
+    };
+    (await builder.Services.AddDistribtMongoDbConnectionProvider(builder.Configuration))
+        .AddScoped(typeof(IProductsReadStore), factory);
 });
 
 

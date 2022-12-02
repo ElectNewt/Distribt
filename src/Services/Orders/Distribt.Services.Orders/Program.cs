@@ -4,7 +4,7 @@ using Distribt.Services.Orders.BusinessLogic.HealthChecks;
 using Distribt.Services.Orders.Data;
 using Distribt.Services.Orders.Services;
 
-WebApplication app = DefaultDistribtWebApplication.Create(args, webappBuilder =>
+WebApplication app = await DefaultDistribtWebApplication.Create(args, webappBuilder =>
 {
     MongoMapping.RegisterClasses();
     webappBuilder.Services.AddServiceBusDomainPublisher(webappBuilder.Configuration);

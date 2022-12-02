@@ -11,7 +11,7 @@ namespace Distribt.Shared.Setup.API;
 
 public static class DefaultDistribtWebApplication
 {
-    public static WebApplication Create(string[] args, Action<WebApplicationBuilder>? webappBuilder = null)
+    public static async Task<WebApplication> Create(string[] args, Action<WebApplicationBuilder>? webappBuilder = null)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +25,9 @@ public static class DefaultDistribtWebApplication
         builder.Services.AddSerializer();
 
         builder.Services.AddServiceDiscovery(builder.Configuration);
-        builder.Services.AddSecretManager(builder.Configuration);
+        
+        await builder.Services.AddSecretManager(builder.Configuration);
+
         builder.Services.AddLogging(logger => logger.AddSerilog());
         builder.Services.AddTracing(builder.Configuration);
         builder.Services.AddMetrics(builder.Configuration);

@@ -1,7 +1,7 @@
 using Distribt.Services.Orders.BusinessLogic;
 using Distribt.Services.Orders.Consumer.Handler;
 
-WebApplication app = DefaultDistribtWebApplication.Create(args, builder =>
+WebApplication app = await DefaultDistribtWebApplication.Create(args, builder =>
 {
     builder.Services.AddProductService(builder.Configuration);
 
