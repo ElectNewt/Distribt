@@ -11,6 +11,7 @@
     <ItemGroup>
         <!--Reference to the shared setup project and the global usings-->
         <Compile Include="..\..\..\Shared\Distribt.Shared.Setup\GlobalUsings.cs" Link="GlobalUsings.cs" />
+        <ProjectReference Include="..\..\..\..\tools\local-development\Distribt.Tools.Aspire\Distribt.Tools.Aspire.ServiceDefaults\Distribt.Tools.Aspire.ServiceDefaults.csproj" />
         <ProjectReference Include="..\Distribt.Services.Products.BusinessLogic\Distribt.Services.Products.BusinessLogic.csproj" />
     </ItemGroup>
 

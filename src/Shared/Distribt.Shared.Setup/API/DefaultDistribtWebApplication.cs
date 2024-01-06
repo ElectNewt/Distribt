@@ -1,5 +1,4 @@
 ﻿using Distribt.Shared.Logging;
-using Distribt.Shared.Setup.Observability;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +13,7 @@ public static class DefaultDistribtWebApplication
     public static WebApplication Create(string[] args, Action<WebApplicationBuilder>? webappBuilder = null)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
+        builder.AddServiceDefaults();
         builder.Configuration.AddConfiguration(HealthCheckHelper.BuildBasicHealthCheck());
         builder.Services.AddHealthChecks();
         builder.Services.AddHealthChecksUI().AddInMemoryStorage();
@@ -27,8 +26,6 @@ public static class DefaultDistribtWebApplication
         builder.Services.AddServiceDiscovery(builder.Configuration);
         builder.Services.AddSecretManager(builder.Configuration);
         builder.Services.AddLogging(logger => logger.AddSerilog());
-        builder.Services.AddTracing(builder.Configuration);
-        builder.Services.AddMetrics(builder.Configuration);
         
         builder.Host.ConfigureSerilog(builder.Services.BuildServiceProvider().GetRequiredService<IServiceDiscovery>());
 

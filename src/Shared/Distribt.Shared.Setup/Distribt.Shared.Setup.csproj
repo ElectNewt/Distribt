@@ -1,9 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <RootNamespace>Distribt.Shared.Setup</RootNamespace>
+    <NoWarn>AD0001</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\tools\local-development\Distribt.Tools.Aspire\Distribt.Tools.Aspire.ServiceDefaults\Distribt.Tools.Aspire.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Distribt.Shared.Discovery\Distribt.Shared.Discovery.csproj" />
     <ProjectReference Include="..\Distribt.Shared.EventSourcing\Distribt.Shared.EventSourcing.csproj" />
     <ProjectReference Include="..\Distribt.Shared.Logging\Distribt.Shared.Logging.csproj" />
@@ -18,10 +20,6 @@
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.4" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.4" />
     <PackageReference Include="Netmentor.ROP.ApiExtensions" Version="1.0.10" />
-    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.3.0" />
-    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.3.0" />
-    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9.4" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.4" />
     <PackageReference Include="Scrutor" Version="4.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>

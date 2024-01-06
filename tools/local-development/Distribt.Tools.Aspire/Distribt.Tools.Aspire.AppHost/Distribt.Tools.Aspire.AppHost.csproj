@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsAspireHost>true</IsAspireHost>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Aspire.Hosting" Version="8.0.0-preview.2.23619.3"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\src\Services\Products\Distribt.Services.Products.Api.Read\Distribt.Services.Products.Api.Read.csproj" />
+      <ProjectReference Include="..\..\..\..\src\Services\Products\Distribt.Services.Products.Api.Write\Distribt.Services.Products.Api.Write.csproj" />
+      <ProjectReference Include="..\..\..\..\src\Services\Products\Distribt.Services.Products.Consumer\Distribt.Services.Products.Consumer.csproj" />
+    </ItemGroup>
+
+</Project>
