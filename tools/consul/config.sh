@@ -8,8 +8,8 @@ docker exec -it consul consul services register -name=Graylog --address=localhos
 docker exec -it consul consul services register -name=OpenTelemetryCollector --address=localhost -port=4317
 
 # Services
-docker exec -it consul consul services register -name=EmailsApi -address=http://localhost -port=50120
-docker exec -it consul consul services register -name=ProductsApiWrite -address=https://localhost -port=50320
-docker exec -it consul consul services register -name=ProductsApiRead -address=https://localhost -port=50321
-docker exec -it consul consul services register -name=OrdersApi -address=http://localhost -port=50220
-docker exec -it consul consul services register -name=SubscriptionsApi -address=http://localhost -port=50420
+docker exec -it consul consul services register -name=EmailsApi -address=http://localhost -port=60120
+docker exec -it consul consul services register -name=ProductsApiWrite -address=https://localhost -port=60320
+docker exec -it consul consul services register -name=ProductsApiRead -address=https://localhost -port=60321
+docker exec -it consul consul services register -name=OrdersApi -address=http://localhost -port=60220
+docker exec -it consul consul services register -name=SubscriptionsApi -address=http://localhost -port=60420
