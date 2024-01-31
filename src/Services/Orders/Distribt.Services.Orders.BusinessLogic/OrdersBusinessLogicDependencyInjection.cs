@@ -14,16 +14,13 @@ public static class OrdersBusinessLogicDependencyInjection
     public static async Task AddProductService(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
         await serviceCollection.AddDistribtMongoDbConnectionProvider(configuration, "productStore");
-
-        var factory = async (IServiceProvider serviceProvider) =>
+        serviceCollection.AddScoped<IProductRepository>( (IServiceProvider serviceProvider) =>
         {
             var mongoDbConnectionProvider = serviceProvider.GetService<IMongoDbConnectionProvider>() ?? throw new ArgumentNullException();
             var databaseConfiguration = serviceProvider.GetService<IOptions<DatabaseConfiguration>>() ?? throw new ArgumentNullException();
-            var mongoUrl = await mongoDbConnectionProvider.GetMongoUrl();
+            var mongoUrl = mongoDbConnectionProvider.GetMongoUrl().GetAwaiter().GetResult();
             return new ProductRepository(mongoUrl, databaseConfiguration);
-        };
-        
-        serviceCollection.AddScoped(typeof(IProductRepository), factory);
+        });
         serviceCollection.AddScoped<IProductNameService, ProductNameService>();
         serviceCollection.AddHttpClient();
         //For now we do not need redis, as is only for local, in prod I recommend redis.

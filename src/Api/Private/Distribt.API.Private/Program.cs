@@ -7,6 +7,7 @@ WebApplication app = await DefaultDistribtWebApplication.Create(args, webappBuil
         .LoadFromConfig(webappBuilder.Configuration.GetSection("ReverseProxy"));
 
     webappBuilder.Services.AddApiToken(webappBuilder.Configuration);
+    webappBuilder.Services.AddRateLimiter(o => { });
 });
 
 app.UseApiTokenMiddleware();

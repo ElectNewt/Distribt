@@ -10,13 +10,10 @@ public static class ConfigureLogger
 {
     public static IHostBuilder ConfigureSerilog(this IHostBuilder builder, IServiceDiscovery discovery)
     {
-
-        async void configureLogger(HostBuilderContext context, IServiceProvider serviceProvider, LoggerConfiguration loggerConfiguration)
+        return builder.UseSerilog(async (HostBuilderContext context, IServiceProvider serviceProvider, LoggerConfiguration loggerConfiguration) =>
         {
             await ConfigureSerilogLogger(loggerConfiguration, context.Configuration, discovery);
-        }
-
-        return builder.UseSerilog(configureLogger);
+        });
     }
 
     private static async Task<LoggerConfiguration> ConfigureSerilogLogger(LoggerConfiguration loggerConfiguration,

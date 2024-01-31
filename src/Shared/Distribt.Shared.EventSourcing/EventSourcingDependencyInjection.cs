@@ -13,16 +13,15 @@ public static class EventSourcingDependencyInjection
         //TODO: probably here it should be the addmongodb thingy
         serviceCollection.AddTransient(typeof(IAggregateRepository<>), typeof(AggregateRepository<>));
         serviceCollection.AddTransient<IEventStore, EventStore>();
-        var factory = async (IServiceProvider serviceProvider) =>
+        serviceCollection.AddTransient<IEventStoreManager>((IServiceProvider serviceProvider) =>
         {
             var mongoDbConnectionProvider = serviceProvider.GetService<IMongoDbConnectionProvider>()
                                             ?? throw new ArgumentNullException(nameof(IMongoDbConnectionProvider));
             var mongoDbEventStoreOptions = serviceProvider.GetService<IOptions<MongoEventStoreConfiguration>>()
                                            ?? throw new ArgumentNullException(nameof(IOptions<MongoEventStoreConfiguration>));
-            var mondoDbUrl = await mongoDbConnectionProvider.GetMongoUrl();
-            return new MongoEventStoreManager(mongoDbEventStoreOptions, mondoDbUrl);
-        };
-        serviceCollection.AddTransient(typeof(IEventStoreManager), factory);
+            var mongoUrl = mongoDbConnectionProvider.GetMongoUrl().GetAwaiter().GetResult();
+            return new MongoEventStoreManager(mongoDbEventStoreOptions, mongoUrl);
+        });
         serviceCollection.Configure<MongoEventStoreConfiguration>(configuration.GetSection("EventSourcing"));
     }
 }

@@ -21,12 +21,12 @@ public static class RabbitMQDependencyInjection
         IConfiguration configuration, string name)
     {
         serviceCollection.AddRabbitMQ(configuration);
-        serviceCollection.PostConfigure<RabbitMQSettings>(async x =>
+        serviceCollection.PostConfigure<RabbitMQSettings>(x =>
         {
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
             
-            var credentials = await rabbitMqCredentialsFactory.Invoke(serviceProvider);
-            var hostname = await rabbitMqHostName.Invoke(serviceProvider);
+            var credentials = rabbitMqCredentialsFactory.Invoke(serviceProvider).Result;
+            var hostname = rabbitMqHostName.Invoke(serviceProvider).Result;
 
             x.SetCredentials(credentials);
             x.SetHostName(hostname);

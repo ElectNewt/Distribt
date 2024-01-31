@@ -26,7 +26,7 @@ public static class MongoDbDependencyInjection
     {
         ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
         string mongoConnectionString = await serviceProvider.GetRequiredService<IMongoDbConnectionProvider>().GetMongoConnectionString();
-        
+
         serviceCollection.AddHealthChecks().AddMongoDb(mongoConnectionString, name, HealthStatus.Unhealthy);
         
         return serviceCollection;

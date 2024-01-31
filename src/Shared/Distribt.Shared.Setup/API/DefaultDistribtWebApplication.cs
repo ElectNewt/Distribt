@@ -13,29 +13,15 @@ public static class DefaultDistribtWebApplication
 {
     public static async Task<WebApplication> Create(string[] args, Action<WebApplicationBuilder>? webappBuilder = null)
     {
-        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder builder = await CreateBuilder(args);
+        webappBuilder?.Invoke(builder);
+        return builder.Build();
+    }
 
-        builder.Configuration.AddConfiguration(HealthCheckHelper.BuildBasicHealthCheck());
-        builder.Services.AddHealthChecks();
-        builder.Services.AddHealthChecksUI().AddInMemoryStorage();
-        builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        builder.Services.AddRouting(x => x.LowercaseUrls = true);
-        builder.Services.AddSerializer();
-        builder.Services.AddServiceDiscovery(builder.Configuration);
-        await builder.Services.AddSecretManager(builder.Configuration);
-        builder.Services.AddLogging(logger => logger.AddSerilog());
-        builder.Services.AddTracing(builder.Configuration);
-        builder.Services.AddMetrics(builder.Configuration);
-        
-        builder.Host.ConfigureSerilog(builder.Services.BuildServiceProvider().GetRequiredService<IServiceDiscovery>());
-
-        if (webappBuilder != null)
-        {
-            webappBuilder.Invoke(builder);
-        }
-
+    public static async Task<WebApplication> Create(string[] args, Func<WebApplicationBuilder, Task> webappBuilder)
+    {
+        WebApplicationBuilder builder = await CreateBuilder(args);
+        await webappBuilder.Invoke(builder);
         return builder.Build();
     }
 
@@ -54,10 +40,10 @@ public static class DefaultDistribtWebApplication
             Predicate = _ => true,
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });
-        
+
         webApp.UseHealthChecksUI(config =>
         {
-            config.UIPath = "/health-ui";            
+            config.UIPath = "/health-ui";
         });
 
 
@@ -65,5 +51,27 @@ public static class DefaultDistribtWebApplication
         webApp.UseAuthorization();
         webApp.MapControllers();
         webApp.Run();
+    }
+
+    private static async Task<WebApplicationBuilder> CreateBuilder(string[] args)
+    {
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+        builder.Configuration.AddConfiguration(HealthCheckHelper.BuildBasicHealthCheck());
+        builder.Services.AddHealthChecks();
+        builder.Services.AddHealthChecksUI().AddInMemoryStorage();
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+        builder.Services.AddRouting(x => x.LowercaseUrls = true);
+        builder.Services.AddSerializer();
+        builder.Services.AddServiceDiscovery(builder.Configuration);
+        await builder.Services.AddSecretManager(builder.Configuration);
+        builder.Services.AddLogging(logger => logger.AddSerilog());
+        builder.Services.AddTracing(builder.Configuration);
+        builder.Services.AddMetrics(builder.Configuration);
+
+        builder.Host.ConfigureSerilog(builder.Services.BuildServiceProvider().GetRequiredService<IServiceDiscovery>());
+        return builder;
     }
 }
