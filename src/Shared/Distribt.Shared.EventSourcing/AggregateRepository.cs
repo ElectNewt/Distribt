@@ -36,7 +36,10 @@ public class AggregateRepository<TAggregate> : IAggregateRepository<TAggregate>
         if (!events.Any())
             return null;
 
+#pragma warning disable SYSLIB0050
+        //TODO: #39 remove the obsolete class.
         var obj = (TAggregate)FormatterServices.GetUninitializedObject(typeof(TAggregate));
+#pragma warning restore SYSLIB0050
         obj.Initialize(id);
         obj.LoadFromHistory(events);
         return obj;

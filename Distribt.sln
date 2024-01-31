@@ -41,23 +41,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.Communicati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.Communication.RabbitMQ", "src\Shared\Shared.Communication\Distribt.Shared.Communication.RabbitMQ\Distribt.Shared.Communication.RabbitMQ.csproj", "{618B694C-C578-4134-8960-DC1A70D4A1A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.Serialization", "src\Shared\Distribt.Shared.Serialization\Distribt.Shared.Serialization.csproj", "{9D9DB152-C9F9-4414-ABFC-C6220C512AB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Shared.Serialization", "src\Shared\Distribt.Shared.Serialization\Distribt.Shared.Serialization.csproj", "{9D9DB152-C9F9-4414-ABFC-C6220C512AB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Subscriptions.Consumer", "src\Services\Subscriptions\Distribt.Services.Subscriptions.Consumer\Distribt.Services.Subscriptions.Consumer.csproj", "{30B33D67-2D5E-4874-A076-CD695D791B30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Services.Subscriptions.Consumer", "src\Services\Subscriptions\Distribt.Services.Subscriptions.Consumer\Distribt.Services.Subscriptions.Consumer.csproj", "{30B33D67-2D5E-4874-A076-CD695D791B30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Subscriptions.Dtos", "src\Services\Subscriptions\Distribt.Services.Subscriptions.Dtos\Distribt.Services.Subscriptions.Dtos.csproj", "{43FAF62D-235B-4AEF-A4A0-8D906EEF6530}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Services.Subscriptions.Dtos", "src\Services\Subscriptions\Distribt.Services.Subscriptions.Dtos\Distribt.Services.Subscriptions.Dtos.csproj", "{43FAF62D-235B-4AEF-A4A0-8D906EEF6530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.Secrets", "src\Shared\Distribt.Shared.Secrets\Distribt.Shared.Secrets.csproj", "{568A6AEA-E4C8-4AE8-AC75-D099AAA1EB01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Shared.Secrets", "src\Shared\Distribt.Shared.Secrets\Distribt.Shared.Secrets.csproj", "{568A6AEA-E4C8-4AE8-AC75-D099AAA1EB01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.Discovery", "src\Shared\Distribt.Shared.Discovery\Distribt.Shared.Discovery.csproj", "{91346414-5C5B-4AAD-AB45-BC827EB1ADA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Shared.Discovery", "src\Shared\Distribt.Shared.Discovery\Distribt.Shared.Discovery.csproj", "{91346414-5C5B-4AAD-AB45-BC827EB1ADA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Orders.Dto", "src\Services\Orders\Distribt.Services.Orders.Dto\Distribt.Services.Orders.Dto.csproj", "{1B8D1C46-25C1-4F13-B264-86F4B4C47661}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Services.Orders.Dto", "src\Services\Orders\Distribt.Services.Orders.Dto\Distribt.Services.Orders.Dto.csproj", "{1B8D1C46-25C1-4F13-B264-86F4B4C47661}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Orders.Consumer", "src\Services\Orders\Distribt.Services.Orders.Consumer\Distribt.Services.Orders.Consumer.csproj", "{6008FEAE-F610-494E-81F5-812A50E90F01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Services.Orders.Consumer", "src\Services\Orders\Distribt.Services.Orders.Consumer\Distribt.Services.Orders.Consumer.csproj", "{6008FEAE-F610-494E-81F5-812A50E90F01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Products.Dtos", "src\Services\Products\Distribt.Services.Products.Dtos\Distribt.Services.Products.Dtos.csproj", "{E2E8AE61-5132-4DBC-A9D9-6D0E5763F307}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Services.Products.Dtos", "src\Services\Products\Distribt.Services.Products.Dtos\Distribt.Services.Products.Dtos.csproj", "{E2E8AE61-5132-4DBC-A9D9-6D0E5763F307}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.Logging", "src\Shared\Distribt.Shared.Logging\Distribt.Shared.Logging.csproj", "{C87ED387-EB68-4FB7-A497-F66B1F96C636}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Shared.Logging", "src\Shared\Distribt.Shared.Logging\Distribt.Shared.Logging.csproj", "{C87ED387-EB68-4FB7-A497-F66B1F96C636}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{98B9BF53-DD00-441A-A22E-76607782742E}"
 EndProject
@@ -65,27 +65,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{10
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subscriptions", "Subscriptions", "{1A3349DA-38FB-4461-AA06-E7ACB2D4AD20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Tests.Services.Subscriptions.ApiTests", "src\Tests\Services\Subscriptions\Distribt.Tests.Services.Subscriptions.ApiTests\Distribt.Tests.Services.Subscriptions.ApiTests.csproj", "{59693C3A-C300-4B18-899C-02F3F5E60B90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Tests.Services.Subscriptions.ApiTests", "src\Tests\Services\Subscriptions\Distribt.Tests.Services.Subscriptions.ApiTests\Distribt.Tests.Services.Subscriptions.ApiTests.csproj", "{59693C3A-C300-4B18-899C-02F3F5E60B90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Products.Api.Read", "src\Services\Products\Distribt.Services.Products.Api.Read\Distribt.Services.Products.Api.Read.csproj", "{407D987E-A900-4BDC-8692-9F88F277A4EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Services.Products.Api.Read", "src\Services\Products\Distribt.Services.Products.Api.Read\Distribt.Services.Products.Api.Read.csproj", "{407D987E-A900-4BDC-8692-9F88F277A4EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Products.Consumer", "src\Services\Products\Distribt.Services.Products.Consumer\Distribt.Services.Products.Consumer.csproj", "{64A6CBB6-F2D6-49FC-9036-8FCFA32A2ED0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Services.Products.Consumer", "src\Services\Products\Distribt.Services.Products.Consumer\Distribt.Services.Products.Consumer.csproj", "{64A6CBB6-F2D6-49FC-9036-8FCFA32A2ED0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Products.BusinessLogic", "src\Services\Products\Distribt.Services.Products.BusinessLogic\Distribt.Services.Products.BusinessLogic.csproj", "{BCD16CB7-109D-4D0E-B2B3-1A45F74DBFC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Services.Products.BusinessLogic", "src\Services\Products\Distribt.Services.Products.BusinessLogic\Distribt.Services.Products.BusinessLogic.csproj", "{BCD16CB7-109D-4D0E-B2B3-1A45F74DBFC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared.Databases", "Shared.Databases", "{E93B860C-F098-4DBD-8C28-B7A5B3E73D20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.Databases.MySql", "src\Shared\Shared.Databases\Distribt.Shared.Databases.MySql\Distribt.Shared.Databases.MySql.csproj", "{7B29CB53-0161-48BD-AFAD-6C3FA51DED4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Shared.Databases.MySql", "src\Shared\Shared.Databases\Distribt.Shared.Databases.MySql\Distribt.Shared.Databases.MySql.csproj", "{7B29CB53-0161-48BD-AFAD-6C3FA51DED4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.Databases.MongoDb", "src\Shared\Shared.Databases\Distribt.Shared.Databases.MongoDb\Distribt.Shared.Databases.MongoDb.csproj", "{86ED7F06-EB4E-403A-82F0-56EF5D029BBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Shared.Databases.MongoDb", "src\Shared\Shared.Databases\Distribt.Shared.Databases.MongoDb\Distribt.Shared.Databases.MongoDb.csproj", "{86ED7F06-EB4E-403A-82F0-56EF5D029BBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Shared.EventSourcing", "src\Shared\Distribt.Shared.EventSourcing\Distribt.Shared.EventSourcing.csproj", "{8858633A-CCE1-423F-9FFD-3CB7A6354ED6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Shared.EventSourcing", "src\Shared\Distribt.Shared.EventSourcing\Distribt.Shared.EventSourcing.csproj", "{8858633A-CCE1-423F-9FFD-3CB7A6354ED6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Services.Orders.BusinessLogic", "src\Services\Orders\Distribt.Services.Orders.BusinessLogic\Distribt.Services.Orders.BusinessLogic.csproj", "{2C8756C1-2FD0-42C6-A13A-0675B9BFEC37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Services.Orders.BusinessLogic", "src\Services\Orders\Distribt.Services.Orders.BusinessLogic\Distribt.Services.Orders.BusinessLogic.csproj", "{2C8756C1-2FD0-42C6-A13A-0675B9BFEC37}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orders", "Orders", "{6B7F9261-46BD-4095-87A6-CDAF806A7375}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Tests.Services.Orders.BusinessLogicTests", "src\Tests\Services\Orders\Distribt.Tests.Services.Orders.BusinessLogicTests\Distribt.Tests.Services.Orders.BusinessLogicTests.csproj", "{E3AA00A8-ED12-454B-A32B-86DDDEB0B3C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distribt.Tests.Services.Orders.BusinessLogicTests", "src\Tests\Services\Orders\Distribt.Tests.Services.Orders.BusinessLogicTests\Distribt.Tests.Services.Orders.BusinessLogicTests.csproj", "{E3AA00A8-ED12-454B-A32B-86DDDEB0B3C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{350872D7-1998-4646-B0B5-B103F702E3F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discovery", "Discovery", "{547BD8CA-B96D-4D23-B54C-9BC828465FF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribt.Test.Shared.Discovery.Tests", "src\Tests\Shared\Discovery\Distribt.Test.Shared.Discovery.Tests\Distribt.Test.Shared.Discovery.Tests.csproj", "{F9C0F635-D488-4E1F-A4AA-912EA8C518B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -201,6 +207,10 @@ Global
 		{E3AA00A8-ED12-454B-A32B-86DDDEB0B3C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3AA00A8-ED12-454B-A32B-86DDDEB0B3C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3AA00A8-ED12-454B-A32B-86DDDEB0B3C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9C0F635-D488-4E1F-A4AA-912EA8C518B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9C0F635-D488-4E1F-A4AA-912EA8C518B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9C0F635-D488-4E1F-A4AA-912EA8C518B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9C0F635-D488-4E1F-A4AA-912EA8C518B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -244,6 +254,9 @@ Global
 		{2C8756C1-2FD0-42C6-A13A-0675B9BFEC37} = {5CA04AE7-BB29-4752-83E3-DA1ACAC05504}
 		{6B7F9261-46BD-4095-87A6-CDAF806A7375} = {102C446D-0625-49A7-B4D9-F606924E98F6}
 		{E3AA00A8-ED12-454B-A32B-86DDDEB0B3C5} = {6B7F9261-46BD-4095-87A6-CDAF806A7375}
+		{350872D7-1998-4646-B0B5-B103F702E3F6} = {98B9BF53-DD00-441A-A22E-76607782742E}
+		{547BD8CA-B96D-4D23-B54C-9BC828465FF7} = {350872D7-1998-4646-B0B5-B103F702E3F6}
+		{F9C0F635-D488-4E1F-A4AA-912EA8C518B5} = {547BD8CA-B96D-4D23-B54C-9BC828465FF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3532EB9C-D36A-4A7D-9494-BBC170208D46}
