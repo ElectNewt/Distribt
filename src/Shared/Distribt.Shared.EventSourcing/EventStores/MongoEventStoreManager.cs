@@ -10,7 +10,7 @@ public class MongoEventStoreManager : IEventStoreManager
 {
     private readonly IMongoDatabase _mongoDatabase;
     private readonly MongoEventStoreConfiguration _mongoDbMongoEventStoreConfiguration;
-    
+
     private IMongoCollection<AggregateChangeDto> _changes =>
         _mongoDatabase.GetCollection<AggregateChangeDto>(_mongoDbMongoEventStoreConfiguration.CollectionName);
 
@@ -21,6 +21,7 @@ public class MongoEventStoreManager : IEventStoreManager
         //TODO: #29; investigate the usage of IMongoDatabase
         var mongoClient = new MongoClient(mondoDbUrl);
         _mongoDatabase = mongoClient.GetDatabase(_mongoDbMongoEventStoreConfiguration.DatabaseName);
+
     }
 
 

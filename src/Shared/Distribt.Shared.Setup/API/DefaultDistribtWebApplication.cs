@@ -23,11 +23,8 @@ public static class DefaultDistribtWebApplication
         builder.Services.AddSwaggerGen();
         builder.Services.AddRouting(x => x.LowercaseUrls = true);
         builder.Services.AddSerializer();
-
         builder.Services.AddServiceDiscovery(builder.Configuration);
-        
         await builder.Services.AddSecretManager(builder.Configuration);
-
         builder.Services.AddLogging(logger => logger.AddSerilog());
         builder.Services.AddTracing(builder.Configuration);
         builder.Services.AddMetrics(builder.Configuration);
