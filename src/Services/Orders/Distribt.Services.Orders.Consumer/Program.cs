@@ -1,9 +1,9 @@
 using Distribt.Services.Orders.BusinessLogic;
 using Distribt.Services.Orders.Consumer.Handler;
 
-WebApplication app = await DefaultDistribtWebApplication.Create(args, builder =>
+WebApplication app = await DefaultDistribtWebApplication.Create(args, async builder =>
 {
-    builder.Services.AddProductService(builder.Configuration);
+    await builder.Services.AddProductService(builder.Configuration);
 
     builder.Services.AddHandlersInAssembly<OrderCreatedHandler>();
     builder.Services.AddServiceBusDomainConsumer(builder.Configuration);

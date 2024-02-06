@@ -8,7 +8,6 @@ WebApplication app = await DefaultDistribtWebApplication.Create(args, async weba
 {
     MongoMapping.RegisterClasses();
     webappBuilder.Services.AddServiceBusDomainPublisher(webappBuilder.Configuration);
-    await webappBuilder.Services.AddDistribtMongoDbConnectionProvider(webappBuilder.Configuration);
     webappBuilder.Services.AddEventSourcing(webappBuilder.Configuration);
     webappBuilder.Services.AddScoped<IOrderRepository, OrderRepository>();
     webappBuilder.Services.AddScoped<ICreateOrderService, CreateOrderService>();
