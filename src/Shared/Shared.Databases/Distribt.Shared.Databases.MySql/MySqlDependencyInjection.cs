@@ -9,17 +9,17 @@ public static class MySqlDependencyInjection
         Func<IServiceProvider, Task<string>> connectionString)
         where T : DbContext
     {
-        return serviceCollection.AddDbContext<T>(async (serviceProvider, builder) =>
+        return serviceCollection.AddDbContext<T>((serviceProvider, builder) =>
         {
-            builder.UseMySQL(await connectionString.Invoke(serviceProvider));
+            builder.UseMySQL(connectionString.Invoke(serviceProvider).Result);
         });
     }
 
-    public static async Task<IServiceCollection> AddMysqlHealthCheck(this IServiceCollection serviceCollection,
+    public static IServiceCollection AddMysqlHealthCheck(this IServiceCollection serviceCollection,
         Func<IServiceProvider, Task<string>> connectionString)
     {
         ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-        string mySqlConnectionString = await connectionString.Invoke(serviceProvider);
+        string mySqlConnectionString = connectionString.Invoke(serviceProvider).Result;
         serviceCollection.AddHealthChecks().AddMySql(mySqlConnectionString);
         return serviceCollection;
     }

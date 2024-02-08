@@ -1,9 +1,9 @@
 using Distribt.Services.Products.BusinessLogic.DataAccess;
 using Distribt.Services.Products.BusinessLogic.UseCases;
 
-WebApplication app = await DefaultDistribtWebApplication.Create(args, async builder =>
+WebApplication app = await DefaultDistribtWebApplication.Create(args, builder =>
 {
-    (await builder.Services.AddMySql<ProductsWriteStore>("distribt"))
+    builder.Services.AddMySql<ProductsWriteStore>("distribt")
         .AddScoped<IProductsWriteStore, ProductsWriteStore>()
         .AddScoped<IUpdateProductDetails, UpdateProductDetails>()
         .AddScoped<ICreateProductDetails, CreateProductDetails>()
