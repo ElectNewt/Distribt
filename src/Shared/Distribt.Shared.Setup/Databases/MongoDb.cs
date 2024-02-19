@@ -5,11 +5,10 @@ namespace Distribt.Shared.Setup.Databases;
 
 public static class MongoDb
 {
-    public static IServiceCollection AddDistribtMongoDbConnectionProvider(this IServiceCollection serviceCollection,
+    public static async Task<IServiceCollection> AddDistribtMongoDbConnectionProvider(this IServiceCollection serviceCollection,
         IConfiguration configuration, string name = "mongodb")
     {
-        return serviceCollection
-            .AddMongoDbConnectionProvider()
+        return await (serviceCollection.AddMongoDbConnectionProvider())
             .AddMongoDbDatabaseConfiguration(configuration)
             .AddMongoHealthCheck(name);
     }
