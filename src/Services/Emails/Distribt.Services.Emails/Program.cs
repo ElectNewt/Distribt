@@ -1,3 +1,3 @@
-WebApplication app = DefaultDistribtWebApplication.Create(args);
+WebApplication app = await DefaultDistribtWebApplication.Create(args);
 
 DefaultDistribtWebApplication.Run(app);

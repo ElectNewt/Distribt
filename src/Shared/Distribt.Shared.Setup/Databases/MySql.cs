@@ -10,8 +10,8 @@ public static class MySql
         where T : DbContext
     {
         return serviceCollection
-            .AddMySqlDbContext<T>(serviceProvider => GetConnectionString(serviceProvider, databaseName))
-            .AddMysqlHealthCheck(serviceProvider => GetConnectionString(serviceProvider, databaseName));
+            .AddMySqlDbContext<T>(async serviceProvider => await GetConnectionString(serviceProvider, databaseName))
+            .AddMysqlHealthCheck(async serviceProvider => await GetConnectionString(serviceProvider, databaseName));
     }
 
     private static async Task<string> GetConnectionString(IServiceProvider serviceProvider, string databaseName)
