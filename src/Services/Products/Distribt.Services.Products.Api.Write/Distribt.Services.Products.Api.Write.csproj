@@ -14,4 +14,10 @@
     <ProjectReference Include="..\Distribt.Services.Products.BusinessLogic\Distribt.Services.Products.BusinessLogic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="GraphQL" Version="7.8.0" />
+    <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="7.7.1" />
+    <PackageReference Include="GraphQL.SystemTextJson" Version="7.8.0" />
+  </ItemGroup>
+
 </Project>
