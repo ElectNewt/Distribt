@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <!--    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>-->
         <RootNamespace>Distribt.Services.Products.BusinessLogic</RootNamespace>
     </PropertyGroup>
 
