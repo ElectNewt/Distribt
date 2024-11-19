@@ -36,10 +36,10 @@ public class CreateOrderService : ICreateOrderService
             .Async()
             //On a real scenario:
             //validate orders
-            //validate fraud check
+            .Bind(x=> ValidateFraudCheck(x, cancellationToken))
             .Bind(x => SaveOrder(x, cancellationToken))
-            .Then(x => MapToOrderResponse(x, cancellationToken)
-                .Bind(or => PublishDomainEvent(or, cancellationToken)))
+            .Then(x => MapToOrderResponse(x)
+                .Bind(PublishDomainEvent))
             .Map(x => new CreateOrderResponse(x.Id, $"order/getorderstatus/{x.Id}"));
     }
 
@@ -60,12 +60,11 @@ public class CreateOrderService : ICreateOrderService
         return orderDetails;
     }
 
-    private async Task<Result<OrderResponse>> MapToOrderResponse(OrderDetails orderDetails,
-        CancellationToken cancellationToken)
+    private async Task<Result<OrderResponse>> MapToOrderResponse(OrderDetails orderDetails)
     {
         var products = await orderDetails.Products
             .SelectAsync(async p => new ProductQuantityName(p.ProductId, p.Quantity,
-                await _productNameService.GetProductName(p.ProductId, cancellationToken)));
+                await _productNameService.GetProductName(p.ProductId)));
 
 
         OrderResponse orderResponse = new OrderResponse(orderDetails.Id, orderDetails.Status.ToString(),
@@ -73,10 +72,16 @@ public class CreateOrderService : ICreateOrderService
         return orderResponse;
     }
 
-    private async Task<Result<Guid>> PublishDomainEvent(OrderResponse orderResponse,
+    private async Task<Result<Guid>> PublishDomainEvent(OrderResponse orderResponse)
+    {
+        await _domainMessagePublisher.Publish(orderResponse, routingKey: "order");
+        return orderResponse.OrderId;
+    }
+
+    private async Task<Result<OrderDetails>> ValidateFraudCheck(OrderDetails orderDetails,
         CancellationToken cancellationToken)
     {
-        await _domainMessagePublisher.Publish(orderResponse, routingKey: "order", cancellationToken: cancellationToken);
-        return orderResponse.OrderId;
+        //Simulation of fraud check validation
+        return orderDetails;
     }
 }
