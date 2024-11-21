@@ -1,12 +1,13 @@
 using Distribt.Shared.Setup.API.Key;
 using Distribt.Shared.Setup.API.RateLimiting;
 
-WebApplication app = DefaultDistribtWebApplication.Create(args, webappBuilder =>
+WebApplication app = await DefaultDistribtWebApplication.Create(args, webappBuilder =>
 {
     webappBuilder.Services.AddReverseProxy()
         .LoadFromConfig(webappBuilder.Configuration.GetSection("ReverseProxy"));
 
     webappBuilder.Services.AddApiToken(webappBuilder.Configuration);
+    webappBuilder.Services.AddRateLimiter(o => { });
 });
 
 app.UseApiTokenMiddleware();
