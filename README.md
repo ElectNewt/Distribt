@@ -12,6 +12,12 @@ La aplicación va a ser "vendor free" lo que quiere decir que no va a estar enla
 
 Es importante saber estos conceptos ya que cada día las empresas están migrando sus aplicaciones monolíticas a microservicios o incluso serverless, y para poder aplicar un correcto funcionamiento, debemos aprender sobre sistemas distribuidos. 
 
+## Libro
+Este Febrero de 2025 he creado un libro que viene perfecto para acompañar el proceso de desarrollo de un sistema distribuido.
+
+Puedes acceder a el libro [Construyendo sistemas distribuidos](https://www.netmentor.es/libros/construyendo-sistemas-distribuidos) y apoyar al contenido. 
+
+
 
 ## ¿Qué vamos a ver? 
 Vamos a ver un sistema distribuido con múltiples características, como pueden ser patrón consumer/publiser, sagas, service discovery, Eventual consistency, etc.
