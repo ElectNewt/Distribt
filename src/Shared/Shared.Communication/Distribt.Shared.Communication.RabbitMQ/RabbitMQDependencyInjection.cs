@@ -24,8 +24,12 @@ public static class RabbitMQDependencyInjection
         serviceCollection.PostConfigure<RabbitMQSettings>(x =>
         {
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-            x.SetCredentials(rabbitMqCredentialsFactory.Invoke(serviceProvider).Result);
-            x.SetHostName(rabbitMqHostName.Invoke(serviceProvider).Result);
+            
+            var credentials = rabbitMqCredentialsFactory.Invoke(serviceProvider).Result;
+            var hostname = rabbitMqHostName.Invoke(serviceProvider).Result;
+
+            x.SetCredentials(credentials);
+            x.SetHostName(hostname);
         });
 
         serviceCollection.AddHealthChecks()

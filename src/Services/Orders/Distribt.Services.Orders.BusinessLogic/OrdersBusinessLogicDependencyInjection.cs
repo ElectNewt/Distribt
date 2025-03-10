@@ -8,15 +8,15 @@ namespace Distribt.Services.Orders.BusinessLogic;
 
 public static class OrdersBusinessLogicDependencyInjection
 {
-    public static void AddProductService(this IServiceCollection serviceCollection, IConfiguration configuration)
+    public static async Task AddProductService(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.AddDistribtMongoDbConnectionProvider(configuration, "productStore");
+        await serviceCollection.AddDistribtMongoDbConnectionProvider(configuration, "productStore");
         serviceCollection.AddScoped<IProductRepository, ProductRepository>();
         serviceCollection.AddScoped<IProductNameService, ProductNameService>();
         serviceCollection.AddHttpClient();
         //For now we do not need redis, as is only for local, in prod I recommend redis.
         serviceCollection.AddDistributedMemoryCache();
     }
-    
-    
+
+
 }

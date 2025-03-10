@@ -19,13 +19,12 @@ public class ProductRepository : IProductRepository
     private const string CollectionName = "ProductName";
     private readonly IMongoDatabase _mongoDatabase;
 
-    public ProductRepository(IMongoDbConnectionProvider mongoDbConnectionProvider,
-        IOptions<DatabaseConfiguration> databaseConfiguration)
+    public ProductRepository(IMongoDbConnectionProvider mongoDbConnectionProvider, IOptions<DatabaseConfiguration> databaseConfiguration)
     {
-        _mongoClient = new MongoClient(mongoDbConnectionProvider.GetMongoUrl());
+        var mongoUrl = mongoDbConnectionProvider.GetMongoUrl().GetAwaiter().GetResult();
+        _mongoClient = new MongoClient(mongoUrl);
         _mongoDatabase = _mongoClient.GetDatabase(databaseConfiguration.Value.DatabaseName);
     }
-
 
     public async Task<string?> GetProductName(int id, CancellationToken cancellationToken = default(CancellationToken))
     {
