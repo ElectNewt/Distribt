@@ -30,7 +30,7 @@ public static class DefaultDistribtWebApplication
         builder.Services.AddTracing(builder.Configuration);
         builder.Services.AddMetrics(builder.Configuration);
         
-        builder.Host.ConfigureSerilog(builder.Services.BuildServiceProvider().GetRequiredService<IServiceDiscovery>());
+        builder.Host.ConfigureSerilog();
 
         if (webappBuilder != null)
         {

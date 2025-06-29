@@ -10,7 +10,11 @@ using System.Threading.Tasks;
 using Distribt.Services.Subscriptions.Dtos;
 using Distribt.Shared.Communication.Messages;
 using Distribt.Shared.Communication.Publisher.Integration;
+using Distribt.Shared.Discovery;
+using Distribt.Shared.Secrets;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 
@@ -18,9 +22,8 @@ namespace Distribt.Tests.Services.Subscriptions.ApiTests;
 
 public class SubscriptionControllerTest
 {
-    //The vault URL is load from the service discovery before building
-    // which means it cannot be mocked/faked/etc
-    [Fact(Skip = "skip while fixing the issue")]
+
+    [Fact]
     public async Task WhenSubscriptionApi_Then_EventPublished()
     {
         SubscriptionApi subscriptionApi = new SubscriptionApi();
@@ -50,9 +53,40 @@ public class SubscriptionControllerTest
         {
             builder.ConfigureServices(services =>
             {
+                services.RemoveAll<IPostConfigureOptions<VaultSettings>>();
+                services.PostConfigure<VaultSettings>(options =>
+                {
+                    options.UpdateUrl("new-value");
+                });
+
+                services.RemoveAll<IServiceDiscovery>();
+                var fakeDiscovery = new FakeDiscovery();
+                services.AddSingleton<IServiceDiscovery>(fakeDiscovery);
+                
                 services.AddSingleton<IIntegrationMessagePublisher>(FakeIntegrationPublisher);
             });
             return base.CreateHost(builder);
+        }
+    }
+
+    public class FakeVaultSettings : IPostConfigureOptions<VaultSettings>
+    {
+        public void PostConfigure(string? name, VaultSettings options)
+        {
+            options.UpdateUrl("http://url.com");
+        }
+    }
+    
+    public class FakeDiscovery : IServiceDiscovery
+    {
+        public Task<string> GetFullAddress(string serviceKey, CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult($"{serviceKey}-address");
+        }
+
+        public Task<DiscoveryData> GetDiscoveryData(string serviceKey, CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(new DiscoveryData("serviceKey", 1));
         }
     }
     
