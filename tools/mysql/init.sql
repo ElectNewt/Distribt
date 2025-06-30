@@ -7,6 +7,15 @@ CREATE TABLE `Products` (
             PRIMARY KEY (`Id`)
 ) AUTO_INCREMENT = 1;
 
+CREATE TABLE `OutboxMessages` (
+            `Id` BIGINT NOT NULL AUTO_INCREMENT,
+            `Type` VARCHAR(500) NOT NULL,
+            `Payload` TEXT NOT NULL,
+            `CreatedUtc` DATETIME NOT NULL,
+            `SentUtc` DATETIME NULL,
+            PRIMARY KEY (`Id`)
+) AUTO_INCREMENT = 1;
+
 INSERT INTO `distribt`.`Products` (`Id`, `Name`, `Description`) VALUES ('1', 'Producto 1', 'La descripción dice qu es el primer producto');
 INSERT INTO `distribt`.`Products` (`Id`, `Name`, `Description`) VALUES ('2', 'Segundo producto', 'Este es el producto numero 2');
 INSERT INTO `distribt`.`Products` (`Id`, `Name`, `Description`) VALUES ('3', 'Tercer', 'Terceras Partes nunca fueron buenas');
