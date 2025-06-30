@@ -3,6 +3,7 @@ using Distribt.Services.Products.BusinessLogic.Outbox;
 using Distribt.Services.Products.Dtos;
 using Distribt.Shared.Communication.Publisher.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Text.Json;
@@ -39,26 +40,34 @@ public class OutboxProcessorTests
     }
 
     [Fact]
-    public async Task AddOutboxMessage_ShouldCreateOutboxMessage()
+    public async Task CreateRecordWithOutboxMessage_ShouldCreateProductAndOutboxMessage()
     {
         // Arrange
         using var dbContext = CreateInMemoryDbContext();
-        var productCreated = new ProductCreated(1, new CreateProductRequest(new ProductDetails("Test", "Desc"), 10, 100m));
+        var productDetails = new ProductDetails("Test Product", "Test Description");
+        var productRequest = new CreateProductRequest(productDetails, 10, 100m);
 
         // Act
-        await dbContext.AddOutboxMessage(
+        var productId = await dbContext.CreateRecordWithOutboxMessage(
+            productDetails,
             typeof(ProductCreated).AssemblyQualifiedName!,
-            productCreated,
+            new ProductCreated(0, productRequest), // Will be updated with actual ID
             "internal");
 
         // Assert
+        Assert.True(productId > 0);
+
+        var product = await dbContext.Set<ProductDetailEntity>().FirstAsync();
+        Assert.Equal("Test Product", product.Name);
+        Assert.Equal("Test Description", product.Description);
+
         var outboxMessage = await dbContext.Set<OutboxMessage>().FirstAsync();
         Assert.Equal(typeof(ProductCreated).AssemblyQualifiedName, outboxMessage.EventType);
         Assert.Equal("internal", outboxMessage.RoutingKey);
         Assert.False(outboxMessage.IsProcessed);
 
         var deserializedEvent = JsonSerializer.Deserialize<ProductCreated>(outboxMessage.EventData);
-        Assert.Equal(1, deserializedEvent!.Id);
+        Assert.Equal(productId, deserializedEvent!.Id);
     }
 
     [Fact]
@@ -68,7 +77,6 @@ public class OutboxProcessorTests
         using var dbContext = CreateInMemoryDbContext();
         var mockPublisher = new Mock<IDomainMessagePublisher>();
         var mockLogger = new Mock<ILogger<OutboxProcessor>>();
-        var outboxRepository = new OutboxRepository(dbContext);
 
         var productCreated = new ProductCreated(1, new CreateProductRequest(new ProductDetails("Test", "Desc"), 10, 100m));
         var outboxMessage = new OutboxMessage
@@ -84,7 +92,7 @@ public class OutboxProcessorTests
         await dbContext.Set<OutboxMessage>().AddAsync(outboxMessage);
         await dbContext.SaveChangesAsync();
 
-        var processor = new OutboxProcessor(outboxRepository, mockPublisher.Object, mockLogger.Object);
+        var processor = new OutboxProcessor(dbContext, mockPublisher.Object, mockLogger.Object);
 
         // Act
         await processor.ProcessPendingMessages();
@@ -98,11 +106,10 @@ public class OutboxProcessorTests
     }
 
     [Fact]
-    public async Task OutboxRepository_GetUnprocessedMessages_ShouldReturnOnlyUnprocessedMessages()
+    public async Task GetUnprocessedMessages_ShouldReturnOnlyUnprocessedMessages()
     {
         // Arrange
         using var dbContext = CreateInMemoryDbContext();
-        var repository = new OutboxRepository(dbContext);
 
         var processedMessage = new OutboxMessage
         {
@@ -128,7 +135,7 @@ public class OutboxProcessorTests
         await dbContext.SaveChangesAsync();
 
         // Act
-        var result = await repository.GetUnprocessedMessages();
+        var result = await dbContext.GetUnprocessedMessages();
 
         // Assert
         Assert.Single(result);
@@ -136,11 +143,10 @@ public class OutboxProcessorTests
     }
 
     [Fact]
-    public async Task OutboxRepository_MarkAsProcessed_ShouldUpdateMessage()
+    public async Task MarkAsProcessed_ShouldUpdateMessage()
     {
         // Arrange
         using var dbContext = CreateInMemoryDbContext();
-        var repository = new OutboxRepository(dbContext);
 
         var message = new OutboxMessage
         {
@@ -156,7 +162,7 @@ public class OutboxProcessorTests
         await dbContext.SaveChangesAsync();
 
         // Act
-        await repository.MarkAsProcessed(message.Id);
+        await dbContext.MarkAsProcessed(message.Id);
 
         // Assert
         var updatedMessage = await dbContext.Set<OutboxMessage>().FirstAsync();

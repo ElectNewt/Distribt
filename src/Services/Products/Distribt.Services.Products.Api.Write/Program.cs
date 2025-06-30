@@ -11,7 +11,6 @@ WebApplication app = DefaultDistribtWebApplication.Create(args, builder =>
         .AddScoped<ICreateProductDetails, CreateProductDetails>()
         .AddScoped<IStockApi,ProductsDependencyFakeType>() //testing purposes
         .AddScoped<IWarehouseApi, ProductsDependencyFakeType>() //testing purposes
-        .AddScoped<IOutboxRepository, OutboxRepository>()
         .AddScoped<IOutboxProcessor, OutboxProcessor>()
         .AddHostedService<OutboxBackgroundService>()
         .AddServiceBusDomainPublisher(builder.Configuration);

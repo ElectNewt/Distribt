@@ -2,6 +2,7 @@ using Distribt.Services.Products.BusinessLogic.DataAccess;
 using Distribt.Services.Products.BusinessLogic.UseCases;
 using Distribt.Services.Products.Dtos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Xunit;
 
 namespace Distribt.Tests.Services.Products.BusinessLogic.UseCases;
