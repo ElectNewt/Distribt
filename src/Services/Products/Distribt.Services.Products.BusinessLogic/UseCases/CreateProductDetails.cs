@@ -14,15 +14,13 @@ public interface ICreateProductDetails
 public class CreateProductDetails : ICreateProductDetails
 {
     private readonly IProductsWriteStore _writeStore;
-    private readonly IDomainMessagePublisher _domainMessagePublisher;
     private readonly IServiceDiscovery _discovery;
     private readonly IStockApi _stockApi;
     private readonly IWarehouseApi _warehouseApi;
 
-    public CreateProductDetails(IProductsWriteStore writeStore, IDomainMessagePublisher domainMessagePublisher, IServiceDiscovery discovery, IStockApi stockApi, IWarehouseApi warehouseApi)
+    public CreateProductDetails(IProductsWriteStore writeStore, IServiceDiscovery discovery, IStockApi stockApi, IWarehouseApi warehouseApi)
     {
         _writeStore = writeStore;
-        _domainMessagePublisher = domainMessagePublisher;
         _discovery = discovery;
         _stockApi = stockApi;
         _warehouseApi = warehouseApi;
@@ -36,8 +34,6 @@ public class CreateProductDetails : ICreateProductDetails
        await _stockApi.AddStockToProduct(productId, productRequest.Stock);
 
        await _warehouseApi.ModifySalesPrice(productId, productRequest.Price);
-        
-        await _domainMessagePublisher.Publish(new ProductCreated(productId, productRequest), routingKey: "internal");
         
         string getUrl = await _discovery.GetFullAddress(DiscoveryServices.Microservices.ProductsApi.ApiRead);
 

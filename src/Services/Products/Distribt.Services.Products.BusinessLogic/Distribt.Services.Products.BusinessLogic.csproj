@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\Distribt.Shared.Setup\Distribt.Shared.Setup.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Distribt.Shared.Outbox\Distribt.Shared.Outbox.csproj" />
       <ProjectReference Include="..\Distribt.Services.Products.Dtos\Distribt.Services.Products.Dtos.csproj" />
     </ItemGroup>
 

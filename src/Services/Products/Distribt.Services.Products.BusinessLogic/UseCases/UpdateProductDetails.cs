@@ -12,19 +12,15 @@ public interface IUpdateProductDetails
 public class UpdateProductDetails : IUpdateProductDetails
 {
     private readonly IProductsWriteStore _writeStore;
-    private readonly IDomainMessagePublisher _domainMessagePublisher;
 
-    public UpdateProductDetails(IProductsWriteStore writeStore, IDomainMessagePublisher domainMessagePublisher)
+    public UpdateProductDetails(IProductsWriteStore writeStore)
     {
         _writeStore = writeStore;
-        _domainMessagePublisher = domainMessagePublisher;
     }
 
     public async Task<bool> Execute(int id, ProductDetails productDetails)
     {
         await _writeStore.UpdateProduct(id, productDetails);
-
-        await _domainMessagePublisher.Publish(new ProductUpdated(id, productDetails), routingKey: "internal");
         
         return true;
     }

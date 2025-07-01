@@ -50,6 +50,7 @@ public static class RabbitMQDependencyInjection
     public static void AddRabbitMQ(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
         serviceCollection.Configure<RabbitMQSettings>(configuration.GetSection("Bus:RabbitMQ"));
+        serviceCollection.AddSingleton<IRabbitMQPublisher, RabbitMQEventPublisher>();
     }
 
     public static void AddConsumerHandlers(this IServiceCollection serviceCollection,
