@@ -1,0 +1,8 @@
+CREATE TABLE OutboxMessages (
+    Id INT PRIMARY KEY AUTO_INCREMENT,
+    EventType VARCHAR(255) NOT NULL,
+    EventData TEXT NOT NULL,
+    CreatedAt DATETIME NOT NULL,
+    IsProcessed BOOLEAN NOT NULL DEFAULT FALSE,
+    ProcessedAt DATETIME NULL
+);
