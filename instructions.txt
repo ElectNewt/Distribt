@@ -1,0 +1,15 @@
+Products are a critical part of the system. We  must ensure that when a Product is created or updated the event will get propagated.
+
+
+There are a few steps to achieve this:
+
+1. Create a table to store the outbox messages
+2. the insertion on the outbox table must happen in a transaction within the creation/modification of the Product
+3. We need a background processor that will read that table and publish the message, once the message is published, the record must be updated, marking it as sent
+4. Don't forget to Add all the necessary unit tests.
+
+Feel free to modfiy any part of the system, but ensure that you are not causing breaking changes. 
+
+The event it is being generated in these two places:
+- Create: /src/Services/Products/Distribt.Services.Products.BusinessLogic/UseCases/CreateProductDetails.cs#L40
+- Update: /src/Services/Products/Distribt.Services.Products.BusinessLogic/UseCases/UpdateProductDetails.cs#L27

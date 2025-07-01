@@ -1,5 +1,6 @@
 using Distribt.Services.Products.BusinessLogic.DataAccess;
 using Distribt.Services.Products.BusinessLogic.UseCases;
+using Distribt.Services.Products.BusinessLogic.Services;
 
 WebApplication app = DefaultDistribtWebApplication.Create(args, builder =>
 {
@@ -7,9 +8,11 @@ WebApplication app = DefaultDistribtWebApplication.Create(args, builder =>
         .AddScoped<IProductsWriteStore, ProductsWriteStore>()
         .AddScoped<IUpdateProductDetails, UpdateProductDetails>()
         .AddScoped<ICreateProductDetails, CreateProductDetails>()
-        .AddScoped<IStockApi,ProductsDependencyFakeType>() //testing purposes
+        .AddScoped<IStockApi, ProductsDependencyFakeType>() //testing purposes
         .AddScoped<IWarehouseApi, ProductsDependencyFakeType>() //testing purposes
         .AddServiceBusDomainPublisher(builder.Configuration);
+    
+    builder.Services.AddHostedService<OutboxProcessor>();
 });
 
 DefaultDistribtWebApplication.Run(app);

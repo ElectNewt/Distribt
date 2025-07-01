@@ -1,6 +1,5 @@
 using Distribt.Services.Products.BusinessLogic.DataAccess;
 using Distribt.Services.Products.Dtos;
-using Distribt.Shared.Communication.Publisher.Domain;
 using Distribt.Shared.Discovery;
 
 namespace Distribt.Services.Products.BusinessLogic.UseCases;
@@ -14,15 +13,13 @@ public interface ICreateProductDetails
 public class CreateProductDetails : ICreateProductDetails
 {
     private readonly IProductsWriteStore _writeStore;
-    private readonly IDomainMessagePublisher _domainMessagePublisher;
     private readonly IServiceDiscovery _discovery;
     private readonly IStockApi _stockApi;
     private readonly IWarehouseApi _warehouseApi;
 
-    public CreateProductDetails(IProductsWriteStore writeStore, IDomainMessagePublisher domainMessagePublisher, IServiceDiscovery discovery, IStockApi stockApi, IWarehouseApi warehouseApi)
+    public CreateProductDetails(IProductsWriteStore writeStore, IServiceDiscovery discovery, IStockApi stockApi, IWarehouseApi warehouseApi)
     {
         _writeStore = writeStore;
-        _domainMessagePublisher = domainMessagePublisher;
         _discovery = discovery;
         _stockApi = stockApi;
         _warehouseApi = warehouseApi;
@@ -31,16 +28,16 @@ public class CreateProductDetails : ICreateProductDetails
     
     public async Task<CreateProductResponse> Execute(CreateProductRequest productRequest)
     {
-       int productId = await _writeStore.CreateRecord(productRequest.Details);
+        int productId = await _writeStore.CreateRecordWithOutboxMessage(
+            productRequest.Details,
+            nameof(ProductCreated), 
+            id => new ProductCreated(id, productRequest),
+            "internal");
 
-       await _stockApi.AddStockToProduct(productId, productRequest.Stock);
-
-       await _warehouseApi.ModifySalesPrice(productId, productRequest.Price);
-        
-        await _domainMessagePublisher.Publish(new ProductCreated(productId, productRequest), routingKey: "internal");
+        await _stockApi.AddStockToProduct(productId, productRequest.Stock);
+        await _warehouseApi.ModifySalesPrice(productId, productRequest.Price);
         
         string getUrl = await _discovery.GetFullAddress(DiscoveryServices.Microservices.ProductsApi.ApiRead);
-
         return new CreateProductResponse($"{getUrl}/product/{productId}");
     }
 }
