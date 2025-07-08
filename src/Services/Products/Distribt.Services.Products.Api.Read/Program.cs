@@ -1,9 +1,9 @@
 using Distribt.Services.Products.BusinessLogic.DataAccess;
 
-WebApplication app = DefaultDistribtWebApplication.Create(args, builder =>
+WebApplication app = await DefaultDistribtWebApplication.Create(args, async builder =>
 {
-    builder.Services.AddDistribtMongoDbConnectionProvider(builder.Configuration)
-        .AddScoped<IProductsReadStore, ProductsReadStore>();
+    await builder.Services.AddDistribtMongoDbConnectionProvider(builder.Configuration);
+    builder.Services.AddScoped<IProductsReadStore, ProductsReadStore>();
 });
 
 

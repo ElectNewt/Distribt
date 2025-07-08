@@ -22,11 +22,11 @@ public static class MongoDbDependencyInjection
     }
 
 
-    public static IServiceCollection AddMongoHealthCheck(this IServiceCollection serviceCollection, string name)
+    public static async Task<IServiceCollection> AddMongoHealthCheck(this IServiceCollection serviceCollection, string name)
     {
         ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-        string mongoConnectionString = serviceProvider.GetRequiredService<IMongoDbConnectionProvider>().GetMongoConnectionString();
-        
+        string mongoConnectionString = await serviceProvider.GetRequiredService<IMongoDbConnectionProvider>().GetMongoConnectionString();
+
         serviceCollection.AddHealthChecks().AddMongoDb(mongoConnectionString, name, HealthStatus.Unhealthy);
         
         return serviceCollection;

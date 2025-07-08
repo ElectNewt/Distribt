@@ -4,10 +4,10 @@ namespace Distribt.Shared.Setup.Services;
 
 public static class SecretManager
 {
-    public static void AddSecretManager(this IServiceCollection serviceCollection, IConfiguration configuration)
+    public static async Task AddSecretManager(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
         //TODO: create an awaiter project instead of .result everywhere in the config
-        string discoveredUrl = GetVaultUrl(serviceCollection.BuildServiceProvider()).Result;
+        string discoveredUrl = await GetVaultUrl(serviceCollection.BuildServiceProvider());
         serviceCollection.AddVaultService(configuration, discoveredUrl); 
     }
 
