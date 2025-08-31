@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:60320;http://localhost:60310",
+      "applicationUrl": "https://localhost:60321;http://localhost:60311",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "VAULT-TOKEN": "vault-distribt-token"

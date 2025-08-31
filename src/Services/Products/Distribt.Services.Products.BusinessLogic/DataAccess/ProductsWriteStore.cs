@@ -17,12 +17,33 @@ public class ProductsWriteStore : DbContext, IProductsWriteStore
     public ProductsWriteStore(DbContextOptions<ProductsWriteStore> options) : base(options)
     {
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<ProductDetailEntity>(b =>
+        {
+            b.HasKey(p => p.Id);
+            b.Property(p => p.Id).ValueGeneratedOnAdd();
+            b.Property(p => p.Name).IsRequired(false);
+            b.Property(p => p.Description).IsRequired(false);
+            b.ToTable("Products");
+        });
+    }
+
     public async Task UpdateProduct(int id, ProductDetails details)
     {
-        var product = await Products.SingleAsync(a => a.Id == id);
-        product.Description = details.Description;
+        // Avoid extra round-trip: attach a stub entity and mark only changed properties as modified
+        var product = new ProductDetailEntity { Id = id };
+        Attach(product);
+
         product.Name = details.Name;
-        
+        product.Description = details.Description;
+
+        Entry(product).Property(p => p.Name).IsModified = true;
+        Entry(product).Property(p => p.Description).IsModified = true;
+
         await SaveChangesAsync();
     }
 
@@ -34,16 +55,16 @@ public class ProductsWriteStore : DbContext, IProductsWriteStore
             Name = details.Name
         };
         
-        var result = await Products.AddAsync(newProduct);
+        Products.Add(newProduct);
         await SaveChangesAsync();
         
-        return result.Entity.Id ?? throw new ApplicationException("the record has not been inserted in the db");
+        return newProduct.Id;
     }
     
     
     private class ProductDetailEntity
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
     }
