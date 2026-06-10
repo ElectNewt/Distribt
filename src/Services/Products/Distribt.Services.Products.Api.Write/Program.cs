@@ -7,6 +7,7 @@ WebApplication app = DefaultDistribtWebApplication.Create(args, builder =>
         .AddScoped<IProductsWriteStore, ProductsWriteStore>()
         .AddScoped<IUpdateProductDetails, UpdateProductDetails>()
         .AddScoped<ICreateProductDetails, CreateProductDetails>()
+        .AddScoped<IUpdateProductPrice, UpdateProductPrice>()
         .AddScoped<IStockApi,ProductsDependencyFakeType>() //testing purposes
         .AddScoped<IWarehouseApi, ProductsDependencyFakeType>() //testing purposes
         .AddServiceBusDomainPublisher(builder.Configuration);

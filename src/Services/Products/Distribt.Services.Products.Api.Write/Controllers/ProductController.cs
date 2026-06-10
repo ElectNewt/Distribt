@@ -11,11 +11,14 @@ public class ProductController
 {
     private readonly IUpdateProductDetails _updateProductDetails;
     private readonly ICreateProductDetails _createProductDetails;
+    private readonly IUpdateProductPrice _updateProductPrice;
 
-    public ProductController(IUpdateProductDetails updateProductDetails, ICreateProductDetails createProductDetails)
+    public ProductController(IUpdateProductDetails updateProductDetails, ICreateProductDetails createProductDetails,
+        IUpdateProductPrice updateProductPrice)
     {
         _updateProductDetails = updateProductDetails;
         _createProductDetails = createProductDetails;
+        _updateProductPrice = updateProductPrice;
     }
 
     [HttpPost(Name = "addproduct")]
@@ -33,6 +36,15 @@ public class ProductController
     public async Task<IActionResult> UpdateProductDetails(int id, ProductDetails productDetails)
     {
         bool result = await _updateProductDetails.Execute(id, productDetails);
+
+        return result.Success().UseSuccessHttpStatusCode(HttpStatusCode.OK).ToActionResult();
+    }
+
+    [HttpPut("updateprice/{id}")]
+    [ProducesResponseType(typeof(ResultDto<bool>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> UpdateProductPrice(int id, UpdateProductPriceRequest request)
+    {
+        bool result = await _updateProductPrice.Execute(id, request);
 
         return result.Success().UseSuccessHttpStatusCode(HttpStatusCode.OK).ToActionResult();
     }
