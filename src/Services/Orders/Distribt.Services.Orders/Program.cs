@@ -16,6 +16,7 @@ WebApplication app = DefaultDistribtWebApplication.Create(args, webappBuilder =>
     webappBuilder.Services.AddScoped<IOrderPaidService, OrderPaidService>();
     webappBuilder.Services.AddScoped<IOrderDispatchedService, OrderDispatchedService>();
     webappBuilder.Services.AddScoped<IOrderDeliveredService, OrderDeliveredService>();
+    webappBuilder.Services.AddScoped<ICancelOrderService, CancelOrderService>();
     webappBuilder.Services.AddProductService(webappBuilder.Configuration);
     webappBuilder.Services.AddHealthChecks().AddCheck<ProductsHealthCheck>(nameof(ProductsHealthCheck));
 });

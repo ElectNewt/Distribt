@@ -13,16 +13,18 @@ public class OrderController
     private readonly IGetOrderService _getOrderService;
     private readonly IOrderPaidService _orderPaidService;
     private readonly IOrderDispatchedService _orderDispatchedService;
+    private readonly ICancelOrderService _cancelOrderService;
 
 
     public OrderController(ICreateOrderService createOrderService,
         IGetOrderService getOrderService, IOrderPaidService orderPaidService,
-        IOrderDispatchedService orderDispatchedService)
+        IOrderDispatchedService orderDispatchedService, ICancelOrderService cancelOrderService)
     {
         _createOrderService = createOrderService;
         _getOrderService = getOrderService;
         _orderPaidService = orderPaidService;
         _orderDispatchedService = orderDispatchedService;
+        _cancelOrderService = cancelOrderService;
     }
 
     [HttpGet("{orderId}")]
@@ -68,4 +70,14 @@ public class OrderController
     public async Task OrderDelivered(Guid orderId, CancellationToken cancellationToken = default(CancellationToken))
         => await _orderDispatchedService.Execute(orderId, cancellationToken)
             .Success().Async().ToActionResult();
+
+    [HttpPut("cancel")]
+    [ProducesResponseType(typeof(ResultDto<bool>), (int)HttpStatusCode.Accepted)]
+    [ProducesResponseType(typeof(ResultDto<bool>), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType(typeof(ResultDto<bool>), (int)HttpStatusCode.Conflict)]
+    public async Task<IActionResult> CancelOrder(Guid orderId,
+        CancellationToken cancellationToken = default(CancellationToken))
+        => await _cancelOrderService.Execute(orderId, cancellationToken)
+            .UseSuccessHttpStatusCode(HttpStatusCode.Accepted)
+            .ToActionResult();
 }

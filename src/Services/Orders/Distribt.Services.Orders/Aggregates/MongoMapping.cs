@@ -11,5 +11,6 @@ public static class MongoMapping
         BsonClassMap.RegisterClassMap<OrderCreated>();
         BsonClassMap.RegisterClassMap<OrderPaid>();
         BsonClassMap.RegisterClassMap<OrderDispatched>();
+        BsonClassMap.RegisterClassMap<OrderCancelled>();
     }
 }

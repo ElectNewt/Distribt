@@ -4,7 +4,8 @@ using Distribt.Shared.EventSourcing;
 
 namespace Distribt.Services.Orders.Aggregates;
 
-public class OrderDetails : Aggregate, IApply<OrderCreated>, IApply<OrderPaid>, IApply<OrderDispatched>, IApply<OrderCompleted>
+public class OrderDetails : Aggregate, IApply<OrderCreated>, IApply<OrderPaid>, IApply<OrderDispatched>,
+    IApply<OrderCompleted>, IApply<OrderCancelled>
 {
     public DeliveryDetails Delivery { get; private set; } = default!;
     public PaymentInformation PaymentInformation { get; private set; } = default!;
@@ -39,6 +40,12 @@ public class OrderDetails : Aggregate, IApply<OrderCreated>, IApply<OrderPaid>, 
     public void Apply(OrderCompleted ev)
     {
         Status = OrderStatus.Completed;
+        ApplyChange(ev);
+    }
+
+    public void Apply(OrderCancelled ev)
+    {
+        Status = OrderStatus.Cancelled;
         ApplyChange(ev);
     }
 }

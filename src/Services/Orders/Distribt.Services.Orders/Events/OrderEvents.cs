@@ -11,6 +11,8 @@ public record OrderDispatched();
 
 public record OrderCompleted();
 
+public record OrderCancelled();
+
 
 public enum OrderStatus
 {
@@ -18,5 +20,6 @@ public enum OrderStatus
     Paid,
     Dispatched,
     Completed,
-    Failed
+    Failed,
+    Cancelled
 }
