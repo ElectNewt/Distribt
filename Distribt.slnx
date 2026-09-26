@@ -1,0 +1,59 @@
+<Solution>
+  <Folder Name="/Api/" />
+  <Folder Name="/Api/Private/">
+    <Project Path="src/Api/Private/Distribt.API.Private/Distribt.API.Private.csproj" />
+  </Folder>
+  <Folder Name="/Api/Public/">
+    <Project Path="src/Api/Public/Distribt.API.Public/Distribt.API.Public.csproj" />
+  </Folder>
+  <Folder Name="/Services/" />
+  <Folder Name="/Services/Email/">
+    <Project Path="src/Services/Emails/Distribt.Services.Emails/Distribt.Services.Emails.csproj" />
+  </Folder>
+  <Folder Name="/Services/Orders/">
+    <Project Path="src/Services/Orders/Distribt.Services.Orders.BusinessLogic/Distribt.Services.Orders.BusinessLogic.csproj" />
+    <Project Path="src/Services/Orders/Distribt.Services.Orders.Consumer/Distribt.Services.Orders.Consumer.csproj" />
+    <Project Path="src/Services/Orders/Distribt.Services.Orders.Dto/Distribt.Services.Orders.Dto.csproj" />
+    <Project Path="src/Services/Orders/Distribt.Services.Orders/Distribt.Services.Orders.csproj" />
+  </Folder>
+  <Folder Name="/Services/Products/">
+    <Project Path="src/Services/Products/Distribt.Services.Products.Api.Read/Distribt.Services.Products.Api.Read.csproj" />
+    <Project Path="src/Services/Products/Distribt.Services.Products.Api.Write/Distribt.Services.Products.Api.Write.csproj" />
+    <Project Path="src/Services/Products/Distribt.Services.Products.BusinessLogic/Distribt.Services.Products.BusinessLogic.csproj" />
+    <Project Path="src/Services/Products/Distribt.Services.Products.Consumer/Distribt.Services.Products.Consumer.csproj" />
+    <Project Path="src/Services/Products/Distribt.Services.Products.Dtos/Distribt.Services.Products.Dtos.csproj" />
+  </Folder>
+  <Folder Name="/Services/Subscriptions/">
+    <Project Path="src/Services/Subscriptions/Distribt.Services.Subscriptions.Consumer/Distribt.Services.Subscriptions.Consumer.csproj" />
+    <Project Path="src/Services/Subscriptions/Distribt.Services.Subscriptions.Dtos/Distribt.Services.Subscriptions.Dtos.csproj" />
+    <Project Path="src/Services/Subscriptions/Distribt.Services.Subscriptions/Distribt.Services.Subscriptions.csproj" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="src/Shared/Distribt.Shared.Discovery/Distribt.Shared.Discovery.csproj" />
+    <Project Path="src/Shared/Distribt.Shared.EventSourcing/Distribt.Shared.EventSourcing.csproj" />
+    <Project Path="src/Shared/Distribt.Shared.Logging/Distribt.Shared.Logging.csproj" />
+    <Project Path="src/Shared/Distribt.Shared.Secrets/Distribt.Shared.Secrets.csproj" />
+    <Project Path="src/Shared/Distribt.Shared.Serialization/Distribt.Shared.Serialization.csproj" />
+    <Project Path="src/Shared/Distribt.Shared.Setup/Distribt.Shared.Setup.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Shared.Communication/">
+    <Project Path="src/Shared/Shared.Communication/Distribt.Shared.Communication.RabbitMQ/Distribt.Shared.Communication.RabbitMQ.csproj" />
+    <Project Path="src/Shared/Shared.Communication/Distribt.Shared.Communication/Distribt.Shared.Communication.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Shared.Databases/">
+    <Project Path="src/Shared/Shared.Databases/Distribt.Shared.Databases.MongoDb/Distribt.Shared.Databases.MongoDb.csproj" />
+    <Project Path="src/Shared/Shared.Databases/Distribt.Shared.Databases.MySql/Distribt.Shared.Databases.MySql.csproj" />
+  </Folder>
+  <Folder Name="/Tests/" />
+  <Folder Name="/Tests/Services/" />
+  <Folder Name="/Tests/Services/Orders/">
+    <Project Path="src/Tests/Services/Orders/Distribt.Tests.Services.Orders.BusinessLogicTests/Distribt.Tests.Services.Orders.BusinessLogicTests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Services/Subscriptions/">
+    <Project Path="src/Tests/Services/Subscriptions/Distribt.Tests.Services.Subscriptions.ApiTests/Distribt.Tests.Services.Subscriptions.ApiTests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Shared/" />
+  <Folder Name="/Tests/Shared/Discovery/">
+    <Project Path="src/Tests/Shared/Discovery/Distribt.Test.Shared.Discovery.Tests/Distribt.Test.Shared.Discovery.Tests.csproj" />
+  </Folder>
+</Solution>
