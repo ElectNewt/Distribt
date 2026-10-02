@@ -9,15 +9,19 @@ namespace Distribt.Shared.Logging;
 public static class ConfigureLogger
 {
     public static IHostBuilder ConfigureSerilog(this IHostBuilder builder, IServiceDiscovery discovery)
-        => builder.UseSerilog((context, loggerConfiguration)
-            => ConfigureSerilogLogger(loggerConfiguration, context.Configuration, discovery));
+    {
+        return builder.UseSerilog(async (HostBuilderContext context, IServiceProvider serviceProvider, LoggerConfiguration loggerConfiguration) =>
+        {
+            await ConfigureSerilogLogger(loggerConfiguration, context.Configuration, discovery);
+        });
+    }
 
-    private static LoggerConfiguration ConfigureSerilogLogger(LoggerConfiguration loggerConfiguration,
+    private static async Task<LoggerConfiguration> ConfigureSerilogLogger(LoggerConfiguration loggerConfiguration,
         IConfiguration configuration, IServiceDiscovery discovery)
     {
         GraylogLoggerConfiguration graylogLogger = new GraylogLoggerConfiguration();
         configuration.GetSection("Logging:Graylog").Bind(graylogLogger);
-        DiscoveryData discoveryData = discovery.GetDiscoveryData(DiscoveryServices.Graylog).Result;
+        DiscoveryData discoveryData = await discovery.GetDiscoveryData(DiscoveryServices.Graylog);
         graylogLogger.Host = discoveryData.Server;
         graylogLogger.Port = discoveryData.Port;
         ConsoleLoggerConfiguration consoleLogger = new ConsoleLoggerConfiguration();

@@ -16,9 +16,9 @@ public static class OpenTelemetry
         serviceCollection.AddOpenTelemetryTracing(builder => builder
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(configuration["AppName"]))
             .AddAspNetCoreInstrumentation()
-            .AddOtlpExporter(exporter =>
+            .AddOtlpExporter(async exporter =>
             { 
-                string url = GetOpenTelemetryCollectorUrl(serviceCollection.BuildServiceProvider()).Result;
+                string url = await GetOpenTelemetryCollectorUrl(serviceCollection.BuildServiceProvider());
                 exporter.Endpoint = new Uri(url);
             })
         );
@@ -30,9 +30,9 @@ public static class OpenTelemetry
         serviceCollection.AddOpenTelemetryMetrics(builder => builder
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(configuration["AppName"]))
             .AddAspNetCoreInstrumentation()
-            .AddOtlpExporter(exporter =>
+            .AddOtlpExporter(async exporter =>
             {
-                string url = GetOpenTelemetryCollectorUrl(serviceCollection.BuildServiceProvider()).Result;
+                string url = await GetOpenTelemetryCollectorUrl(serviceCollection.BuildServiceProvider());
                 exporter.Endpoint = new Uri(url);
             }));
     }

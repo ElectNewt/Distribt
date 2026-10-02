@@ -6,8 +6,8 @@ namespace Distribt.Shared.Databases.MongoDb;
 
 public interface IMongoDbConnectionProvider
 {
-    MongoUrl GetMongoUrl();
-    string GetMongoConnectionString();
+    Task<MongoUrl> GetMongoUrl();
+    Task<string> GetMongoConnectionString();
 }
 
 public class MongoDbConnectionProvider : IMongoDbConnectionProvider
@@ -25,21 +25,21 @@ public class MongoDbConnectionProvider : IMongoDbConnectionProvider
     }
 
 
-    public MongoUrl GetMongoUrl()
+    public async Task<MongoUrl> GetMongoUrl()
     {
         if (MongoUrl is not null)
             return MongoUrl;
 
-        MongoConnectionString = RetrieveMongoUrl().Result;
+        MongoConnectionString = await RetrieveMongoUrl();
         MongoUrl = new MongoUrl(MongoConnectionString);
 
         return MongoUrl;
     }
 
-    public string GetMongoConnectionString()
+    public async Task<string> GetMongoConnectionString()
     {
         if (MongoConnectionString is null)
-            GetMongoUrl();
+            await GetMongoUrl();
 
         return MongoConnectionString ?? throw new Exception("Mongo connection string cannot be retrieved");
     }
